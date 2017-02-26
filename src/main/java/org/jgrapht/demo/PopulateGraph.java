@@ -72,7 +72,7 @@ public class PopulateGraph
 	static SubjectNode smA;
 	QueryNode queryNode;
 	SubjectNode subjectNode;
-	static int arraySize = 8565; // arrayList.size(); 
+	static int arraySize; // = 8565; // arrayList.size();
 
 
 	public static void main(String[] args2)
@@ -612,6 +612,7 @@ public class PopulateGraph
 			e.printStackTrace();
 		}
 
+		arraySize = arrayList.size();
 	}
 
 
