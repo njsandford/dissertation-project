@@ -285,7 +285,10 @@ public class PopulateGraph
 	}
 
 
-
+	public ListenableDirectedGraph<Node, SequenceEdge> getGraph() {
+		dataToGraph();
+		return g;
+	}
 
 
 	public static void dataToGraph()
