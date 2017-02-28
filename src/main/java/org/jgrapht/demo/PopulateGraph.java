@@ -73,7 +73,7 @@ public class PopulateGraph
 	QueryNode queryNode;
 	SubjectNode subjectNode;
 	static int arraySize; // = 8565; // arrayList.size();
-
+	private String fileName;
 
 	public static void main(String[] args2)
 	{
@@ -82,9 +82,16 @@ public class PopulateGraph
 		PopulateGraph pg = new PopulateGraph();
 		pg.graphVisualisation();
 		pg.GUI();
-
 	}
 
+	public PopulateGraph() {
+		dataToGraph();
+	}
+
+	public static ListenableDirectedGraph<Node, SequenceEdge> getGraph() {
+		dataToGraph();
+		return g;
+	}
 
 	public static void testWithoutGUI()
 	{
@@ -284,19 +291,12 @@ public class PopulateGraph
 		return g2;
 	}
 
-
-	public ListenableDirectedGraph<Node, SequenceEdge> getGraph() {
-		dataToGraph();
-		return g;
-	}
-
-
 	public static void dataToGraph()
 	{
 
 
 		System.out.println("\nMax Memory; " + java.lang.Runtime.getRuntime().maxMemory()); 
-		readFile("NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
+		readFile("testBlast.fna.blast"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
 		sortMatches();
 
 		for(StoreData sd: getStoredData())
@@ -974,12 +974,12 @@ public class PopulateGraph
 
 	}
 
-	public static int getScreenWorkingWidth() 
+	public static int getScreenWorkingWidth()
 	{
 		return java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().width;
 	}
 
-	public static int getScreenWorkingHeight() 
+	public static int getScreenWorkingHeight()
 	{
 		return java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds().height;
 	}
