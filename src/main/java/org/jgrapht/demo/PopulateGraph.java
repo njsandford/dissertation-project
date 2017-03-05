@@ -84,10 +84,6 @@ public class PopulateGraph
 		pg.GUI();
 	}
 
-	public PopulateGraph() {
-		dataToGraph();
-	}
-
 	public static ListenableDirectedGraph<Node, SequenceEdge> getGraph() {
 		dataToGraph();
 		return g;
