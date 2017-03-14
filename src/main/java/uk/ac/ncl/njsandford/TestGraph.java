@@ -40,8 +40,15 @@ public class TestGraph {
         //GUI gui = new GUI(graph);
         //gui.openGUI();
 
-        TestGraph testGraph = new TestGraph();
-        testGraph.testParseData("testBlast.txt");
+        //TestGraph testGraph = new TestGraph();
+        //testGraph.testParseData("testBlast.txt");
+
+        ParseData parseData = new ParseData();
+        ArrayList<StoreData> storeData = parseData.readBlastFile("testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        System.out.println(storeData);
+
+        GraphHelper graphHelper = new GraphHelper();
+        graphHelper.getGraphFromData(storeData);
 
         /*SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
         SubGraphs subGraphs = new SubGraphs();
