@@ -89,6 +89,8 @@ public class PopulateGraph
 		return g;
 	}
 
+
+
 	public static void testWithoutGUI()
 	{
 		/**Test without using GUI, print isomorphismAlgorithm results to terminal.*/
@@ -292,7 +294,7 @@ public class PopulateGraph
 
 
 		System.out.println("\nMax Memory; " + java.lang.Runtime.getRuntime().maxMemory()); 
-		readFile("testBlast.fna.blast"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
+		readFile("testBlast.txt"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
 		sortMatches();
 
 		for(StoreData sd: getStoredData())
