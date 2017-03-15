@@ -31,31 +31,32 @@ import java.util.Map;
  */
 public class TestGraph {
 
-    private static PopulateGraph populateGraph;
     private static ListenableDirectedGraph<Node, SequenceEdge> graph;
 
     public static void main(String[] args) {
         //populateGraph = new PopulateGraph();
         //graph = populateGraph.getGraph();
-        //GUI gui = new GUI(graph);
-        //gui.openGUI();
 
         //TestGraph testGraph = new TestGraph();
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<StoreData> storeData = parseData.readBlastFile("testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
-        System.out.println(storeData);
+        ArrayList<StoreData> graphData = parseData.readBlastFile("testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
-        graphHelper.getGraphFromData(storeData);
+        graph = graphHelper.getGraphFromData(graphData);
 
-        /*SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
+        SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
         SubGraphs subGraphs = new SubGraphs();
 
-        ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMstches = searchAlgorithms.subgraphSearch(graph, subGraphs.match());
-        System.out.println("Found Matches: " + foundMstches);
-        */
+
+        ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMatches = searchAlgorithms.subgraphSearch(graph, subGraphs.match());
+        System.out.println("\nFound Matches: " + foundMatches);
+
+        GUI gui = new GUI(graph, graphData);
+        //gui.openGUI();
+/**/
 
         //populateGraph.run();
         //initialiseGraph();
