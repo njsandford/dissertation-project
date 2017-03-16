@@ -12,10 +12,12 @@ import java.util.Scanner;
 public class GraphSearch {
 
     private SubGraphs subGraphs;
+    private SearchAlgorithms searchAlgorithms;
     private ListenableDirectedGraph<Node, SequenceEdge> graph;
 
     public GraphSearch(ListenableDirectedGraph<Node, SequenceEdge> graph) {
-        subGraphs = new SubGraphs();
+        this.subGraphs = new SubGraphs();
+        this.searchAlgorithms = new SearchAlgorithms();
         this.graph = graph;
     }
 

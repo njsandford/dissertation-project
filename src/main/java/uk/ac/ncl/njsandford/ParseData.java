@@ -29,7 +29,6 @@ public class ParseData {
                         Integer.parseInt(splitLine[4]), Integer.parseInt(splitLine[5]), Integer.parseInt(splitLine[6]), Integer.parseInt(splitLine[7]));
                 blastData.add(lineData);
             }
-
         }
         catch (IOException e) {
             e.printStackTrace();
@@ -43,7 +42,6 @@ public class ParseData {
                 e.printStackTrace();
             }
         }
-
         return blastData;
     }
 
