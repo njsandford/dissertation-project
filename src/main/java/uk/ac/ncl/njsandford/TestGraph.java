@@ -31,7 +31,7 @@ import java.util.Map;
  */
 public class TestGraph {
 
-    private static ListenableDirectedGraph<Node, SequenceEdge> graph;
+    //private static ListenableDirectedGraph<Node, SequenceEdge> graph;
 
     public static void main(String[] args) {
         //populateGraph = new PopulateGraph();
@@ -40,6 +40,8 @@ public class TestGraph {
         //TestGraph testGraph = new TestGraph();
         //testGraph.testParseData("testBlast.txt");
 
+        ListenableDirectedGraph<Node, SequenceEdge> graph;
+
         ParseData parseData = new ParseData();
         ArrayList<StoreData> graphData = parseData.readBlastFile("testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
@@ -47,16 +49,18 @@ public class TestGraph {
         GraphHelper graphHelper = new GraphHelper();
         graph = graphHelper.getGraphFromData(graphData);
 
-        SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
-        SubGraphs subGraphs = new SubGraphs();
+        //SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
+        //SubGraphs subGraphs = new SubGraphs();
 
-
+        GraphSearch graphSearch = new GraphSearch(graph);
+        graphSearch.userInputSearch();
+/*
         ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMatches = searchAlgorithms.subgraphSearch(graph, subGraphs.match());
         System.out.println("\nFound Matches: " + foundMatches);
 
         GUI gui = new GUI(graph, graphData);
         //gui.openGUI();
-/**/
+*/
 
         //populateGraph.run();
         //initialiseGraph();

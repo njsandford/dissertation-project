@@ -44,7 +44,7 @@ public class GraphHelper {
         QueryNode qNode;
         SubjectNode sNode;
 
-        // Add vertiole edges
+        // Add vertical edges
         for (int i = 0; i < graphData.size(); i++) {
             qNode = queryNodes.get(i);
             sNode = subjectNodes.get(i);
