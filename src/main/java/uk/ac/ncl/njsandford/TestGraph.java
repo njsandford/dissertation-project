@@ -41,7 +41,7 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<StoreData> graphData = parseData.readBlastFile("testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<StoreData> graphData = parseData.readBlastFile("CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();

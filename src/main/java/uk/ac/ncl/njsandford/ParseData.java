@@ -24,9 +24,9 @@ public class ParseData {
             bufferedReader = new BufferedReader(new FileReader(fileName));
 
             while ((currentLine = bufferedReader.readLine()) != null) {
-                String[] splitLine = currentLine.split("\t");
+                String[] splitLine = currentLine.split(",");
                 StoreData lineData = new StoreData(splitLine[0], splitLine[1], Double.parseDouble(splitLine[2]), Integer.parseInt(splitLine[3]),
-                        Integer.parseInt(splitLine[4]), Integer.parseInt(splitLine[5]), Integer.parseInt(splitLine[6]), Integer.parseInt(splitLine[7]));
+                        Integer.parseInt(splitLine[6]), Integer.parseInt(splitLine[7]), Integer.parseInt(splitLine[8]), Integer.parseInt(splitLine[9]));
                 blastData.add(lineData);
             }
 

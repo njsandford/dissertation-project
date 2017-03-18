@@ -10,6 +10,7 @@ import javax.sound.midi.Sequence;
  */
 public class SubGraphs {
 
+    // INCORRECT - should never have this subgraph isomorphism!
     public ListenableDirectedGraph<Node, SequenceEdge> match() {
         ListenableDirectedGraph<Node, SequenceEdge> match = new ListenableDirectedGraph<Node, SequenceEdge>(SequenceEdge.class);
 

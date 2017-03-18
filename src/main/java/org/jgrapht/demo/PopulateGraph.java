@@ -294,7 +294,7 @@ public class PopulateGraph
 
 
 		System.out.println("\nMax Memory; " + java.lang.Runtime.getRuntime().maxMemory()); 
-		readFile("testBlast.txt"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
+		readFile("CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
 		sortMatches();
 
 		for(StoreData sd: getStoredData())
@@ -574,7 +574,7 @@ public class PopulateGraph
 			while (scanner.hasNextLine()) 
 			{
 				line = scanner.nextLine();
-				temp = line.split("\t"); //split line at tabs and store in a temporary array
+				temp = line.split(","); //split line at tabs and store in a temporary array
 				//lines have been parsed in as Strings, convert to required type
 				Double identity = Double.parseDouble(temp[2]);
 				int alignmentLength = Integer.parseInt(temp[3]);
