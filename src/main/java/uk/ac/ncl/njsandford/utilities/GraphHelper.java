@@ -1,10 +1,9 @@
-package uk.ac.ncl.njsandford;
+package uk.ac.ncl.njsandford.utilities;
 
-import com.sun.awt.SecurityWarning;
-import org.jgrapht.demo.*;
+//import org.jgrapht.demo.*;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import uk.ac.ncl.njsandford.graph.*;
 
-import javax.management.Query;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -15,12 +14,12 @@ import java.util.Comparator;
 public class GraphHelper {
 
 
-    public ListenableDirectedGraph<Node, SequenceEdge> getGraphFromData(ArrayList<StoreData> graphData) {
+    public ListenableDirectedGraph<Node, SequenceEdge> getGraphFromData(ArrayList<BlastData> graphData) {
         ListenableDirectedGraph<Node, SequenceEdge> graph = new ListenableDirectedGraph<Node, SequenceEdge>(SequenceEdge.class);
 
         sortData(graphData);
 
-        StoreData local;
+        BlastData local;
 
         ArrayList<QueryNode> queryNodes = new ArrayList<>();
         ArrayList<SubjectNode> subjectNodes = new ArrayList<>();
@@ -50,19 +49,19 @@ public class GraphHelper {
             sNode = subjectNodes.get(i);
 
             // Add match edge
-            graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.CORRESPONDS_TO));
+            graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
 
             // Add inversion edges
             if (inversionCheck(qNode, sNode)) {
-                graph.addEdge(sNode, qNode, new SequenceEdge(SequenceEdge.Type.CORRESPONDS_TO));
+                graph.addEdge(sNode, qNode, new SequenceEdge(SequenceEdge.Type.MATCH));
             }
 
             // Add duplication edge
             if (i != 0) {
                 if (qNode.equals(queryNodes.get(i-1)) || sNode.equals(subjectNodes.get(i-1))) {
-                    //g.addEdge(queryVertices.get(i-1), sn, new SequenceEdge(SequenceEdge.Type.CORRESPONDS_TO));
-                    //g.addEdge(qn, subjectVertices.get(i-1), new SequenceEdge(SequenceEdge.Type.CORRESPONDS_TO));
-                    graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.CORRESPONDS_TO));
+                    //graph.addEdge(queryVertices.get(i-1), sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
+                    //graph.addEdge(qNode, subjectVertices.get(i-1), new SequenceEdge(SequenceEdge.Type.MATCH));
+                    graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
                 }
             }
         }
@@ -92,45 +91,37 @@ public class GraphHelper {
             switch (gap) {
                 case 1:
                     if(!qDuplicate){  //ensures a horizontal edge isn't added to the duplicated vertices that appear in the arrayList, vertices don't exist in the vertex set anyway.
-                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH_GAP));
+                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.GAP));
                     }
                     if(!sDuplicate){
-                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
+                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NO_GAP));
                     }
 
                     break;
                 case 2:
                     if(!qDuplicate){
-                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
+                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NO_GAP));
                     }
                     if(!sDuplicate){
-                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH_GAP));
+                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.GAP));
                     }
 
                     break;
                 case 3:
                     if(!qDuplicate){
-                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH_GAP));
+                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.GAP));
                     }
                     if(!sDuplicate){
-                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH_GAP));
+                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.GAP));
                     }
 
                     break;
-                case 4:
-                    if(!qDuplicate){
-                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
-                    }
-                    if(!sDuplicate){
-                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
-                    }
-                    break;
                 default:
                     if(!qDuplicate){
-                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
+                        graph.addEdge(qNode, qNodeNext, new SequenceEdge(SequenceEdge.Type.NO_GAP));
                     }
                     if(!sDuplicate){
-                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NEXT_MATCH));
+                        graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NO_GAP));
                     }
                     break;
             }
@@ -161,19 +152,19 @@ public class GraphHelper {
         else return false;
     }
 
-    private QueryNode dataToQueryNode(StoreData data) {
-        return new QueryNode(data.getQueryID(), data.getqStart(), data.getqEnd(), data.getAlignmentLen(), data.getIdentity());
+    private QueryNode dataToQueryNode(BlastData data) {
+        return new QueryNode(data.getQueryId(), data.getQueryStart(), data.getQueryEnd(), data.getAlignmentLength(), data.getIdentity(), data.geteValue(), data.getBitScore());
     }
 
-    private SubjectNode dataToSubjectNode(StoreData data) {
-        return new SubjectNode(data.getSubjectID(), data.getsStart(), data.getsEnd(), data.getAlignmentLen(), data.getIdentity());
+    private SubjectNode dataToSubjectNode(BlastData data) {
+        return new SubjectNode(data.getSubjectId(), data.getSubjectStart(), data.getSubjectEnd(), data.getAlignmentLength(), data.getIdentity(), data.geteValue(), data.getBitScore());
     }
 
 
-    private void sortData(ArrayList<StoreData> graphData) {
-        Collections.sort(graphData, new Comparator<StoreData>() {
-            @Override public int compare(StoreData sd1, StoreData sd2) {
-                return sd1.getqStart() - sd2.getqStart();
+    private void sortData(ArrayList<BlastData> graphData) {
+        Collections.sort(graphData, new Comparator<BlastData>() {
+            @Override public int compare(BlastData sd1, BlastData sd2) {
+                return sd1.getQueryStart() - sd2.getQueryStart();
             }
         });
     }

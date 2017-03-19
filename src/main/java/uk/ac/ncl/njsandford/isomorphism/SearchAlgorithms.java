@@ -1,12 +1,9 @@
-package uk.ac.ncl.njsandford;
+package uk.ac.ncl.njsandford.isomorphism;
 
 import org.jgrapht.ListenableGraph;
-import org.jgrapht.demo.Node;
-import org.jgrapht.demo.QueryNode;
-import org.jgrapht.demo.SequenceEdge;
-import org.jgrapht.demo.SubjectNode;
 import org.jgrapht.experimental.isomorphism.*;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import uk.ac.ncl.njsandford.graph.*;
 
 import java.util.ArrayList;
 import java.util.Set;
@@ -16,7 +13,7 @@ import java.util.Set;
  */
 public class SearchAlgorithms {
 
-    public ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> subgraphSearch(ListenableDirectedGraph<Node, SequenceEdge> searchGraph, ListenableGraph<Node, SequenceEdge> subGraph) {
+    public ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> subgraphSearch(ListenableDirectedGraph<Node, SequenceEdge> searchGraph, ListenableDirectedGraph<Node, SequenceEdge> subGraph) {
         ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMatches = new ArrayList<>();
 
         Set<Node> nodes = searchGraph.vertexSet();
@@ -27,7 +24,7 @@ public class SearchAlgorithms {
 
             ListenableDirectedGraph<Node, SequenceEdge> match;
 
-            if (node.getSequenceEdge().size() >= 1) {
+            if (node.getSequenceEdges().size() >= 1) {
                 for (SequenceEdge edge: edges) {
                     Node matchNode = searchGraph.getEdgeSource(edge);
                     match = new ListenableDirectedGraph<>(SequenceEdge.class);

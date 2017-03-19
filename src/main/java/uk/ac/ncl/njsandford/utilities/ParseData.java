@@ -1,6 +1,4 @@
-package uk.ac.ncl.njsandford;
-
-import org.jgrapht.demo.StoreData;
+package uk.ac.ncl.njsandford.utilities;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,8 +10,8 @@ import java.util.ArrayList;
  */
 public class ParseData {
 
-    public ArrayList<StoreData> readBlastFile(String fileName) {
-        ArrayList<StoreData> blastData = new ArrayList<>();
+    public ArrayList<BlastData> readBlastFile(String fileName) {
+        ArrayList<BlastData> blastData = new ArrayList<>();
 
         BufferedReader bufferedReader = null;
         FileReader fileReader = null;
@@ -25,8 +23,8 @@ public class ParseData {
 
             while ((currentLine = bufferedReader.readLine()) != null) {
                 String[] splitLine = currentLine.split(",");
-                StoreData lineData = new StoreData(splitLine[0], splitLine[1], Double.parseDouble(splitLine[2]), Integer.parseInt(splitLine[3]),
-                        Integer.parseInt(splitLine[6]), Integer.parseInt(splitLine[7]), Integer.parseInt(splitLine[8]), Integer.parseInt(splitLine[9]));
+                BlastData lineData = new BlastData(splitLine[0], splitLine[1], Double.parseDouble(splitLine[2]), Integer.parseInt(splitLine[3]), Integer.parseInt(splitLine[4]), Integer.parseInt(splitLine[5]),
+                        Integer.parseInt(splitLine[6]), Integer.parseInt(splitLine[7]), Integer.parseInt(splitLine[8]), Integer.parseInt(splitLine[9]), Double.parseDouble(splitLine[10]), Double.parseDouble(splitLine[11]));
                 blastData.add(lineData);
             }
 

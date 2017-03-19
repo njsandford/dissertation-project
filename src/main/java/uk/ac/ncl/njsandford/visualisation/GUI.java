@@ -1,4 +1,4 @@
-package uk.ac.ncl.njsandford;
+package uk.ac.ncl.njsandford.visualisation;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -9,8 +9,14 @@ import com.mxgraph.util.mxEventObject;
 import com.mxgraph.util.mxEventSource;
 import com.mxgraph.view.mxGraphSelectionModel;
 import com.mxgraph.view.mxStylesheet;
-import org.jgrapht.demo.*;
+
+import org.jgrapht.demo.UserInputListener;
+//import org.jgrapht.demo.
+import org.jgrapht.demo.JGraphXAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import uk.ac.ncl.njsandford.utilities.BlastData;
+import uk.ac.ncl.njsandford.isomorphism.SubGraphs;
+import uk.ac.ncl.njsandford.graph.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -31,9 +37,9 @@ public class GUI {
     private JFrame frame;
     private ListenableDirectedGraph<Node, SequenceEdge> graph;
     private JGraphXAdapter<Node, SequenceEdge> jGraph;
-    private List<StoreData> graphData;
+    private List<BlastData> graphData;
 
-    public GUI(ListenableDirectedGraph<Node, SequenceEdge> graph, List<StoreData> graphData) {
+    public GUI(ListenableDirectedGraph<Node, SequenceEdge> graph, List<BlastData> graphData) {
         this.graph = graph;
         this.jGraph = new JGraphXAdapter<>(graph);
         this.graphData = graphData;
@@ -45,8 +51,8 @@ public class GUI {
         /*frame = new JFrame("Rearrangement Types");
         final JPanel panel = new JPanel(new GridBagLayout());
 
-        JGraphXAdapter<Node, SequenceEdge> Jgraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
-        final mxGraphComponent graphComponent = new mxGraphComponent(Jgraph);
+        JGraphXAdapter<Node, SequenceEdge> jGraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
+        final mxGraphComponent graphComponent = new mxGraphComponent(jGraph);
 
 
         GridBagConstraints c = new GridBagConstraints();
@@ -73,8 +79,8 @@ public class GUI {
         // JGraphXAdapter<Node, SequenceEdge> graph = pg.getGraph();
         // ListenableDirectedGraph<Node, SequenceEdge> g = pg.getListenableGraph();
 
-        JGraphXAdapter<Node, SequenceEdge> Jgraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
-        final mxGraphComponent graphComponent = new mxGraphComponent(Jgraph);
+        //JGraphXAdapter<Node, SequenceEdge> jGraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
+        final mxGraphComponent graphComponent = new mxGraphComponent(jGraph);
 
 
         GridBagConstraints c = new GridBagConstraints();
@@ -90,7 +96,7 @@ public class GUI {
 
         //panel.setBounds(0, 20, getScreenWorkingWidth(), 520);
 
-        JLabel qID = new JLabel(" Query Sequence: " + graphData.get(0).getQueryID() + " ");
+        JLabel qID = new JLabel(" Query Sequence: " + graphData.get(0).getQueryId() + " ");
         qID.setOpaque(true);
         qID.setBackground(new Color(153, 153, 255));
         qID.setFont(new Font("Ariel", Font.PLAIN, 14));
@@ -101,7 +107,7 @@ public class GUI {
         c.gridy = 1;
         panel.add(qID, c);
 
-        JLabel sID = new JLabel("  Subject Sequence: " + graphData.get(0).getSubjectID() + "  ");
+        JLabel sID = new JLabel("  Subject Sequence: " + graphData.get(0).getSubjectId() + "  ");
         sID.setOpaque(true);
         sID.setBackground(new Color(102, 204, 0));
         sID.setFont(new Font("Ariel", Font.PLAIN, 14));
@@ -148,8 +154,11 @@ public class GUI {
         });
 
         SubGraphs subGraphs = new SubGraphs();
+/*
 
-		/*INSERTION*/
+		*/
+/*INSERTION*//*
+
         final IsomorphismAlgorithm subgraph1;
         subgraph1 = new IsomorphismAlgorithm(graph, subGraphs.deletion(), "QInsertion");
         final IsomorphismAlgorithm subgraph2;
@@ -158,7 +167,9 @@ public class GUI {
         InsertionListener ins = new InsertionListener(subgraph1, subgraph2, textBox, ui);
         insertion.addActionListener(ins);
 
-		/*DELETION*/
+		*/
+/*DELETION*//*
+
         final IsomorphismAlgorithm subgraphd1;
         subgraphd1 = new IsomorphismAlgorithm(graph, subGraphs.deletion(), "QInsertion");
         final IsomorphismAlgorithm subgraphd2;
@@ -168,7 +179,9 @@ public class GUI {
         deletion.addActionListener(del);
 
 
-		/*VARIATION*/
+		*/
+/*VARIATION*//*
+
         IsomorphismAlgorithm subgraph3;
         subgraph3 = new IsomorphismAlgorithm(graph, subGraphs.variation(), "Variation");
         JButton variation = new JButton("Variations");
@@ -176,7 +189,9 @@ public class GUI {
         variation.addActionListener(var);
 
 
-		/*INVERSION*/
+		*/
+/*INVERSION*//*
+
         IsomorphismAlgorithm subgraph4;
         subgraph4 = new IsomorphismAlgorithm(graph, subGraphs.inversion(),"Inversion");
         JButton inversion = new JButton(" Inversion ");
@@ -184,7 +199,9 @@ public class GUI {
         inversion.addActionListener(inv);
 
 
-		/*DUPLICATIONS*/
+		*/
+/*DUPLICATIONS*//*
+
         IsomorphismAlgorithm subgraph5;
         subgraph5 = new IsomorphismAlgorithm(graph, subGraphs.duplicationInSearch(),"SDuplication");
         IsomorphismAlgorithm subgraph6;
@@ -193,13 +210,14 @@ public class GUI {
         InsertionListener dup = new InsertionListener(subgraph5, subgraph6, textBox, ui);
         duplication.addActionListener(dup);
 
+*/
 
 
         JLabel tblabel = new JLabel("         Search for:          ");
 
         final JToolBar toolbar = new JToolBar();
         toolbar.add(tblabel);
-        Dimension d = new Dimension(15, 0);
+/*        Dimension d = new Dimension(15, 0);
         toolbar.add(variation);
         toolbar.addSeparator(d);
         toolbar.add(insertion);
@@ -210,7 +228,7 @@ public class GUI {
         toolbar.addSeparator(d);
         toolbar.add(duplication);
         toolbar.addSeparator(d);
-
+*/
         c = new GridBagConstraints();
         c.insets = new Insets(20,20,20,20);
         c.anchor = GridBagConstraints.NORTH;
@@ -236,16 +254,16 @@ public class GUI {
         gc.gridy = 1;
         panel.add(propBox, gc);
 
-        Jgraph.getSelectionModel().addListener(mxEvent.CHANGE, new mxEventSource.mxIEventListener(){
+        jGraph.getSelectionModel().addListener(mxEvent.CHANGE, new mxEventSource.mxIEventListener(){
             public void invoke(Object sender, mxEventObject arg1)
             {
                 if (sender instanceof mxGraphSelectionModel)
                 {
                     for (Object cell : ((mxGraphSelectionModel)sender).getCells())
                     {
-                        int i = Jgraph.getCellToVertexMap().get(cell).getAligmentLength();
-                        double d = Jgraph.getCellToVertexMap().get(cell).getIdentity();
-                        String s =  "   Alignment Pos: " + Jgraph.getLabel(cell) + "\n   Percent Identity: " + d +
+                        int i = jGraph.getCellToVertexMap().get(cell).getAlignmentLength();
+                        double d = jGraph.getCellToVertexMap().get(cell).getIdentity();
+                        String s =  "   Alignment Pos: " + jGraph.getLabel(cell) + "\n   Percent Identity: " + d +
                                 "%\n   Alignment Length: " + i;
 
                         System.out.print("\nNode: " + s);
@@ -368,11 +386,11 @@ public class GUI {
         jGraph.setCellsDisconnectable(false);
         jGraph.setCellsEditable(false);
         jGraph.setCellsResizable(false);
-        jGraph.setCellsBendable(false);
+        jGraph.setCellsBendable(true);
         jGraph.setConnectableEdges(false);
         jGraph.setAllowDanglingEdges(false);
-        jGraph.setCellsMovable(false);
-        //jGraph.setCellsMovable(true);
+        //jGraph.setCellsMovable(false);
+        jGraph.setCellsMovable(true);
 
 
     }

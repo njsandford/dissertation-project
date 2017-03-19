@@ -8,18 +8,18 @@ public class QueryNode extends Node
 	{
 		super(seqID, start, end, alignmentLength, identity);
 		
-	} 
-	
+	}
+
 	@Override
 	public String toString()
 	{
 		String s;
-		
-		//s = "\nQuery "+  name + " node: qStart " + start + " <---> qEnd " + end; 
-		
-		s =  start + " - "  + end; 
-		
+
+		//s = "\nQuery "+  name + " node: qStart " + start + " <---> qEnd " + end;
+
+		s =  start + " - "  + end;
+
 		 return s;
 	}
-	
+
 }

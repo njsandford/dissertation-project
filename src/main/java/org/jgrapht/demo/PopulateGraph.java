@@ -294,7 +294,7 @@ public class PopulateGraph
 
 
 		System.out.println("\nMax Memory; " + java.lang.Runtime.getRuntime().maxMemory()); 
-		readFile("CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt"); //"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
+		readFile("CV86YM68113-Alignment-HitTable.csv");//"testBlast.txt");//"CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");  //EDITEDIT.fna.blast //ArtificialDataV2Unordered.txt //NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast
 		sortMatches();
 
 		for(StoreData sd: getStoredData())

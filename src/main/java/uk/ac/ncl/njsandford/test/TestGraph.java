@@ -1,30 +1,16 @@
-package uk.ac.ncl.njsandford;
+package uk.ac.ncl.njsandford.test;
 
-import com.mxgraph.model.mxCell;
-import com.mxgraph.model.mxGeometry;
-import com.mxgraph.swing.mxGraphComponent;
-import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource;
-import com.mxgraph.view.mxGraphSelectionModel;
-import com.mxgraph.view.mxStylesheet;
-import org.jgrapht.ListenableGraph;
-import org.jgrapht.demo.*;
 import org.jgrapht.graph.ListenableDirectedGraph;
+import uk.ac.ncl.njsandford.utilities.BlastData;
+import uk.ac.ncl.njsandford.isomorphism.SearchAlgorithms;
+import uk.ac.ncl.njsandford.isomorphism.SubGraphs;
+import uk.ac.ncl.njsandford.utilities.GraphHelper;
+import uk.ac.ncl.njsandford.utilities.ParseData;
+import uk.ac.ncl.njsandford.visualisation.GUI;
+import uk.ac.ncl.njsandford.graph.Node;
+import uk.ac.ncl.njsandford.graph.SequenceEdge;
 
-import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * Created by Natalie on 26/02/2017.
@@ -41,7 +27,7 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<StoreData> graphData = parseData.readBlastFile("CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
@@ -69,15 +55,15 @@ public class TestGraph {
     public void testAlgorithm() {
         SearchAlgorithms searchAlgorithms = new SearchAlgorithms();
 
-        ListenableDirectedGraph<Node, SequenceEdge> searchGraph = new ListenableDirectedGraph<>(SequenceEdge.class);
+        ListenableDirectedGraph<uk.ac.ncl.njsandford.graph.Node, SequenceEdge> searchGraph = new ListenableDirectedGraph<>(SequenceEdge.class);
         //searchGraph.addVertex(new SubjectNode())
 
     }
 
     public void testParseData(String fileName) {
         ParseData parseData = new ParseData();
-        ArrayList<StoreData> storeData = parseData.readBlastFile(fileName);
-        System.out.println(storeData);
+        ArrayList<BlastData> blastData = parseData.readBlastFile(fileName);
+        System.out.println(blastData);
     }
 
 }
