@@ -19,17 +19,17 @@ public class GraphHelper {
 
         sortData(graphData);
 
-        BlastData local;
-
         ArrayList<QueryNode> queryNodes = new ArrayList<>();
         ArrayList<SubjectNode> subjectNodes = new ArrayList<>();
 
+        BlastData currentData;
+
         // Add all nodes
         for (int i = 0; i < graphData.size(); i++) {
-            local = graphData.get(i);
+            currentData = graphData.get(i);
 
-            QueryNode qNode = dataToQueryNode(local);
-            SubjectNode sNode = dataToSubjectNode(local);
+            QueryNode qNode = dataToQueryNode(currentData);
+            SubjectNode sNode = dataToSubjectNode(currentData);
 
             queryNodes.add(qNode);
             subjectNodes.add(sNode);
@@ -87,6 +87,14 @@ public class GraphHelper {
             qDuplicate = qNode.equals(qNodeNext);
             sDuplicate = sNode.equals(sNodeNext);
 
+            if(!qDuplicate){  //ensures a horizontal edge isn't added to the duplicated vertices that appear in the arrayList, vertices don't exist in the vertex set anyway.
+                graph.addEdge(qNode, qNodeNext, new SequenceEdge(gapCheck(qNode, qNodeNext)));
+            }
+            if(!sDuplicate){
+                graph.addEdge(sNode, sNodeNext, new SequenceEdge(gapCheck(sNode, sNodeNext)));
+            }
+
+            /*
             gap = checkForGap(qNode, qNodeNext, sNode, sNodeNext);
             switch (gap) {
                 case 1:
@@ -124,7 +132,7 @@ public class GraphHelper {
                         graph.addEdge(sNode, sNodeNext, new SequenceEdge(SequenceEdge.Type.NO_GAP));
                     }
                     break;
-            }
+            }*/
         }
 
         System.out.print("\n\n******** END Horizontal Edges*********");
@@ -133,18 +141,37 @@ public class GraphHelper {
     }
 
     private int checkForGap(QueryNode qNode, QueryNode qNodeNext, SubjectNode sNode, SubjectNode sNodeNext) {
-        int qnEnd = qNode.getEnd();
         int qnnStart = qNodeNext.getStart();
+        int qnEnd = qNode.getEnd();
         int snEnd = sNode.getEnd();
         int snnStart = sNodeNext.getStart();
+
         // GAP in Query:
-        if (qnEnd != qnnStart && snEnd == snnStart) return 1;
+        if (((qnEnd + 1) < qnnStart) && ((snEnd + 1) == snnStart)) return 1;
         // GAP in Subject:
-        else if (qnEnd == qnnStart && snEnd != snnStart) return 2;
+        else if (((qnEnd + 1) == qnnStart) && ((snEnd + 1) < snnStart)) return 2;
         // GAP in both:
-        else if (qnEnd != qnnStart && snEnd != snnStart) return 3;
+        else if (((qnEnd + 1) == qnnStart) && ((snEnd + 1) == snnStart)) return 3;
+        // OVERLAP:
+        //else if () return 4;
         // No GAP:
         else return 0;
+    }
+
+    private SequenceEdge.Type gapCheck(Node lhs, Node rhs) {
+        int lhsStart = lhs.getStart();
+        int lhsEnd = lhs.getEnd();
+        int rhsStart = rhs.getStart();
+        int rhsEnd = rhs.getEnd();
+
+        // NO_GAP:
+        if ((lhsEnd + 1) == rhsStart || (lhsEnd + 1) == rhsEnd || ((lhsStart + 1) == rhsStart) || ((lhsStart + 1) == rhsEnd)) return SequenceEdge.Type.NO_GAP;
+        // GAP
+        else if ((lhsEnd + 1) < rhsStart) return SequenceEdge.Type.GAP;
+        // OVERLAP:
+        //else if ((rhsStart >= lhsStart && rhsStart <= lhsEnd && rhsEnd > lhsStart && rhsEnd < lhsEnd) || (lhsStart < rhsEnd && lhsStart > rhsEnd && lhsEnd > rhsStart && lhsEnd < rhsEnd)) return SequenceEdge.Type.OVERLAP;
+        //else if ((lhsEnd + 1) < rhsStart) return SequenceEdge.Type.GAP;
+        else return SequenceEdge.Type.OVERLAP;
     }
 
     private boolean inversionCheck(QueryNode qNode, SubjectNode sNode) {

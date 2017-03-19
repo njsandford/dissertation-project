@@ -12,16 +12,4 @@ public class QueryNode extends Node {
         super(Node.Type.QUERY, seqID, start, end, alignmentLength, identity, eValue, bitScore);
 
     }
-
-    @Override
-    public String toString()
-    {
-        String s;
-
-        //s = "\nQuery "+  name + " node: qStart " + start + " <---> qEnd " + end;
-
-        s =  start + " - "  + end;
-
-        return s;
-    }
 }

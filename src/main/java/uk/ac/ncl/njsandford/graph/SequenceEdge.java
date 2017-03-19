@@ -15,7 +15,7 @@ public class SequenceEdge extends DefaultEdge {
 
     public enum Type {
 
-        GAP, NO_GAP, MATCH, INVERSION;
+        GAP, NO_GAP, MATCH, OVERLAP, INVERSION;
     }
 
     public void setEdgeType(Type edgeType) {
