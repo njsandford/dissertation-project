@@ -7,7 +7,6 @@ import org.jgrapht.graph.DefaultEdge;
  */
 public class Region extends DefaultEdge {
     protected SequenceType sequenceType;
-    protected
     protected String seqId;
     protected int startPos;
     protected int endPos;
@@ -25,10 +24,6 @@ public class Region extends DefaultEdge {
         setIdentity(identity);
         seteValue(eValue);
         setBitScore(bitScore);
-    }
-
-    public enum Label {
-        GAP,
     }
 
     public SequenceType getSequenceType() {
