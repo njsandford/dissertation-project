@@ -99,7 +99,7 @@ public class PopulateGraph
 
 		while (!quit){
 
-			System.out.print("\n\nSelect a rearrangment type:" +
+			System.out.print("\n\nSelect a rearrangment sequenceType:" +
 					" \n Press 1 for Insertions\n Press 2 for Deletions \n Press 3 for" +
 					" Inversions \n Press 4 for Duplications \n Press 5 for Variations " +
 					"\nPress 6 to Exit");
@@ -575,7 +575,7 @@ public class PopulateGraph
 			{
 				line = scanner.nextLine();
 				temp = line.split(","); //split line at tabs and store in a temporary array
-				//lines have been parsed in as Strings, convert to required type
+				//lines have been parsed in as Strings, convert to required sequenceType
 				Double identity = Double.parseDouble(temp[2]);
 				int alignmentLength = Integer.parseInt(temp[3]);
 				int qStart = Integer.parseInt(temp[6]);
@@ -636,7 +636,7 @@ public class PopulateGraph
 	//				/*Fields in every line are separated by a tab. Split line where tab spaces are present
 	//				 *and store each field in a temporary array */
 	//				temp = line.split("\t"); 
-	//				/*lines are parsed in as Strings, and convert to the required type where necessary*/
+	//				/*lines are parsed in as Strings, and convert to the required sequenceType where necessary*/
 	//				double identity = Double.parseDouble(temp[2]);
 	//				int alignmentLength = Integer.parseInt(temp[3]);		
 	//				int qStart = Integer.parseInt(temp[4]);

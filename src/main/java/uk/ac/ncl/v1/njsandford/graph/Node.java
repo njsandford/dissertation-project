@@ -1,4 +1,4 @@
-package uk.ac.ncl.njsandford.graph;
+package uk.ac.ncl.v1.njsandford.graph;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class Node {
 
     public enum Type {
 
-        QUERY, SUBJECT;
+        QUERY, SUBJECT
     }
 
     public Type getNodeType() {
@@ -142,9 +142,10 @@ public class Node {
         return result;
     }
 
+
     @Override
     public String toString()
     {
-        return start + " - "  + end;
+        return getSeqId() + /* getSequenceType().toString() + */ ": " + start + " - "  + end;
     }
 }

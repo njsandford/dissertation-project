@@ -1,4 +1,4 @@
-package uk.ac.ncl.njsandford.graph;
+package uk.ac.ncl.v1.njsandford.graph;
 
 import org.jgrapht.graph.DefaultEdge;
 
@@ -10,6 +10,7 @@ public class SequenceEdge extends DefaultEdge {
     protected Type edgeType;
 
     public SequenceEdge(Type edgeType) {
+        super();
         setEdgeType(edgeType);
     }
 
@@ -18,14 +19,23 @@ public class SequenceEdge extends DefaultEdge {
         GAP, NO_GAP, MATCH, OVERLAP, INVERSION;
     }
 
-    public void setEdgeType(Type edgeType) {
+    @Override
+    public Node getSource() {
+        return (Node) super.getSource();
+    }
+
+    @Override
+    public Node getTarget() {
+        return (Node) super.getTarget();
+    }
+
+    private void setEdgeType(Type edgeType) {
         this.edgeType = edgeType;
     }
 
-    protected Type getEdgeType() {
+    public Type getEdgeType() {
         return edgeType;
     }
-
 
     public String toString()
     {

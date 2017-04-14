@@ -274,7 +274,7 @@ public class IsomorphismAlgorithm
 		{
 			node = (SubjectNode) node;
 			tempDS.add(node);
-			//System.out.print("\n TARGET node is of the correct type (Subject) " + node + " is also added");		
+			//System.out.print("\n TARGET node is of the correct sequenceType (Subject) " + node + " is also added");
 			return true;
 		}
 

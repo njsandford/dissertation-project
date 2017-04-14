@@ -1,4 +1,4 @@
-package uk.ac.ncl.njsandford.visualisation;
+package uk.ac.ncl.v1.njsandford.visualisation;
 
 import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
@@ -14,9 +14,12 @@ import org.jgrapht.demo.UserInputListener;
 //import org.jgrapht.demo.
 import org.jgrapht.demo.JGraphXAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
-import uk.ac.ncl.njsandford.utilities.BlastData;
-import uk.ac.ncl.njsandford.isomorphism.SubGraphs;
-import uk.ac.ncl.njsandford.graph.*;
+import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
+import uk.ac.ncl.v1.njsandford.utilities.BlastData;
+import uk.ac.ncl.v1.njsandford.isomorphism.SubGraphs;
+import uk.ac.ncl.v1.njsandford.graph.Node;
+import uk.ac.ncl.v1.njsandford.graph.QueryNode;
+import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 
 import javax.swing.*;
 import javax.swing.border.Border;

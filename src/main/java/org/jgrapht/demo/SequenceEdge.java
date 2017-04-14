@@ -17,14 +17,14 @@ public class SequenceEdge extends DefaultEdge
 	private static final long serialVersionUID = 1L;
 	
 	Type name;
-	String seqID; //This edge connects nodes of the same sequence type
+	String seqID; //This edge connects nodes of the same sequence sequenceType
 
 
 	//Edge labels
 	public enum Type 
 	{
-		NEXT_MATCH,                  //edge type that connects two sequential matches together with no gap between them
-		NEXT_MATCH_GAP,                //edge type that connects two sequential matches together with a gap between them
+		NEXT_MATCH,                  //edge sequenceType that connects two sequential matches together with no gap between them
+		NEXT_MATCH_GAP,                //edge sequenceType that connects two sequential matches together with a gap between them
 		CORRESPONDS_TO                      //edge that connect a query match node to its corresponding subject node
 	}
 

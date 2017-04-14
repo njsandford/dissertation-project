@@ -1,4 +1,4 @@
-package uk.ac.ncl.njsandford.graph;
+package uk.ac.ncl.v1.njsandford.graph;
 
 /**
  * Created by Natalie on 19/03/2017.

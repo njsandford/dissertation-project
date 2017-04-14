@@ -45,12 +45,13 @@
       <version>3.2</version>
     </dependency>
 
-
+    <!-- https://mvnrepository.com/artifact/org.jgrapht/jgrapht-core -->
     <dependency>
-      <groupId>jgrapht</groupId>
-      <artifactId>jgrapht</artifactId>
-      <version>0.8.3</version>
+      <groupId>org.jgrapht</groupId>
+      <artifactId>jgrapht-core</artifactId>
+      <version>1.0.1</version>
     </dependency>
+
 
 
     <dependency>
@@ -59,7 +60,6 @@
       <!--<version>1.13.0.0</version>-->
       <version>1.10.4.1</version>
     </dependency>
-
 
     <dependency>
       <groupId>junit</groupId>

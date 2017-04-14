@@ -1,8 +1,12 @@
-package uk.ac.ncl.njsandford.utilities;
+package uk.ac.ncl.v1.njsandford.utilities;
 
 //import org.jgrapht.demo.*;
 import org.jgrapht.graph.ListenableDirectedGraph;
-import uk.ac.ncl.njsandford.graph.*;
+import uk.ac.ncl.v1.njsandford.graph.*;
+import uk.ac.ncl.v1.njsandford.graph.Node;
+import uk.ac.ncl.v1.njsandford.graph.QueryNode;
+import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
+import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,12 +23,12 @@ public class GraphHelper {
 
         sortData(graphData);
 
-        ArrayList<QueryNode> queryNodes = new ArrayList<>();
-        ArrayList<SubjectNode> subjectNodes = new ArrayList<>();
+        ArrayList<Node> queryNodes = new ArrayList<>();
+        ArrayList<Node> subjectNodes = new ArrayList<>();
 
         BlastData currentData;
 
-        // Add all nodes
+        // Add all nodes and matching edges
         for (int i = 0; i < graphData.size(); i++) {
             currentData = graphData.get(i);
 
@@ -36,14 +40,17 @@ public class GraphHelper {
 
             graph.addVertex(qNode);
             graph.addVertex(sNode);
+
+            // Add match edge
+            graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
         }
 
         System.out.print("\n\n******** END Nodes *********");
 
-        QueryNode qNode;
-        SubjectNode sNode;
+        Node qNode;
+        Node sNode;
 
-        // Add vertical edges
+        /*// Add vertical edges
         for (int i = 0; i < graphData.size(); i++) {
             qNode = queryNodes.get(i);
             sNode = subjectNodes.get(i);
@@ -51,29 +58,35 @@ public class GraphHelper {
             // Add match edge
             graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
 
+            // NO LONGER USED - This is computation that should be done in the isomorphism logic!
             // Add inversion edges
-            if (inversionCheck(qNode, sNode)) {
+            /*if (inversionCheck(qNode, sNode)) {
                 graph.addEdge(sNode, qNode, new SequenceEdge(SequenceEdge.Type.MATCH));
-            }
+            }*/
 
+            // Seems to be redundant code? duplications are just a sequenceType of match, like inversions!
             // Add duplication edge
-            if (i != 0) {
+            /*if (i != 0) {
                 if (qNode.equals(queryNodes.get(i-1)) || sNode.equals(subjectNodes.get(i-1))) {
-                    //graph.addEdge(queryVertices.get(i-1), sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
-                    //graph.addEdge(qNode, subjectVertices.get(i-1), new SequenceEdge(SequenceEdge.Type.MATCH));
-                    graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
+                    graph.addEdge(queryNodes.get(i-1), sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
+                    graph.addEdge(qNode, subjectNodes.get(i-1), new SequenceEdge(SequenceEdge.Type.MATCH));
+                    //graph.addEdge(qNode, sNode, new SequenceEdge(SequenceEdge.Type.MATCH));
                 }
-            }
-        }
+            }*/
+        //}*/
 
         System.out.print("\n\n******** END Vertical List*********");
 
-        QueryNode qNodeNext = null;
-        SubjectNode sNodeNext = null;
+        Node qNodeNext = null;
+        Node sNodeNext = null;
         int lastElement = graphData.size() - 1;
-        int gap;
+        //int gap;
         boolean qDuplicate;
         boolean sDuplicate;
+
+        // Order the nodes according to the lowest position of each node.
+        sortNodes(subjectNodes);
+        sortNodes(queryNodes);
 
         for (int i = 0; i < graphData.size(); i++) {
             qNode = queryNodes.get(i);
@@ -140,6 +153,7 @@ public class GraphHelper {
         return graph;
     }
 
+    /*
     private int checkForGap(QueryNode qNode, QueryNode qNodeNext, SubjectNode sNode, SubjectNode sNodeNext) {
         int qnnStart = qNodeNext.getStart();
         int qnEnd = qNode.getEnd();
@@ -157,6 +171,7 @@ public class GraphHelper {
         // No GAP:
         else return 0;
     }
+    */
 
     private SequenceEdge.Type gapCheck(Node lhs, Node rhs) {
         int lhsStart = lhs.getStart();
@@ -174,10 +189,11 @@ public class GraphHelper {
         else return SequenceEdge.Type.OVERLAP;
     }
 
+    /* NO LONGER USED!! Inversion, duplication, etc. checks now done in isomorphism algorithm.
     private boolean inversionCheck(QueryNode qNode, SubjectNode sNode) {
         if ((qNode.getEnd() < qNode.getStart()) || (sNode.getEnd() < sNode.getStart())) return true;
         else return false;
-    }
+    }*/
 
     private QueryNode dataToQueryNode(BlastData data) {
         return new QueryNode(data.getQueryId(), data.getQueryStart(), data.getQueryEnd(), data.getAlignmentLength(), data.getIdentity(), data.geteValue(), data.getBitScore());
@@ -187,6 +203,14 @@ public class GraphHelper {
         return new SubjectNode(data.getSubjectId(), data.getSubjectStart(), data.getSubjectEnd(), data.getAlignmentLength(), data.getIdentity(), data.geteValue(), data.getBitScore());
     }
 
+    private void sortNodes(ArrayList<Node> nodes) {
+        Collections.sort(nodes, new Comparator<Node>() {
+            @Override
+            public int compare(Node o1, Node o2) {
+                return Math.min(o1.getStart(), o1.getEnd()) - Math.min(o2.getStart(), o2.getEnd());
+            }
+        });
+    }
 
     private void sortData(ArrayList<BlastData> graphData) {
         Collections.sort(graphData, new Comparator<BlastData>() {
@@ -195,5 +219,4 @@ public class GraphHelper {
             }
         });
     }
-
 }

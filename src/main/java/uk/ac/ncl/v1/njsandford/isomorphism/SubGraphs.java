@@ -1,7 +1,10 @@
-package uk.ac.ncl.njsandford.isomorphism;
+package uk.ac.ncl.v1.njsandford.isomorphism;
 
 import org.jgrapht.graph.ListenableDirectedGraph;
-import uk.ac.ncl.njsandford.graph.*;
+import uk.ac.ncl.v1.njsandford.graph.Node;
+import uk.ac.ncl.v1.njsandford.graph.QueryNode;
+import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
+import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
 
 /**
  * Created by Natalie on 28/02/2017.
@@ -115,7 +118,7 @@ public class SubGraphs {
         SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
 
         inversion.addEdge(query, subject, startEdge);
-        inversion.addEdge(query, subject, endEdge);
+        inversion.addEdge(subject, query, endEdge);
 
         return inversion;
     }
@@ -123,8 +126,8 @@ public class SubGraphs {
     public ListenableDirectedGraph<Node, SequenceEdge> duplicationInQuery() {
         ListenableDirectedGraph<Node, SequenceEdge> duplication = new ListenableDirectedGraph<>(SequenceEdge.class);
 
-        QueryNode query1 = new QueryNode("query", 0, 0, 0, 0.0, 0.0, 0.0);
-        QueryNode query2 = new QueryNode("query", 0, 0, 0, 0.0, 0.0, 0.0);
+        QueryNode query1 = new QueryNode("query", 1, 2, 0, 0.0, 0.0, 0.0);
+        QueryNode query2 = new QueryNode("query", 3, 4, 0, 0.0, 0.0, 0.0);
         SubjectNode subject = new SubjectNode("subject", 0, 0, 0, 0.0, 0.0, 0.0);
 
         duplication.addVertex(query1);
@@ -144,8 +147,8 @@ public class SubGraphs {
         ListenableDirectedGraph<Node, SequenceEdge> duplication = new ListenableDirectedGraph<>(SequenceEdge.class);
 
         QueryNode query = new QueryNode("query", 0, 0, 0, 0.0, 0.0, 0.0);
-        SubjectNode subject1 = new SubjectNode("subject1", 0, 0, 0, 0.0, 0.0, 0.0);
-        SubjectNode subject2 = new SubjectNode("subject2", 0, 0, 0, 0.0, 0.0, 0.0);
+        SubjectNode subject1 = new SubjectNode("subject1", 1, 2, 0, 0.0, 0.0, 0.0);
+        SubjectNode subject2 = new SubjectNode("subject2", 3, 4, 0, 0.0, 0.0, 0.0);
 
         duplication.addVertex(query);
         duplication.addVertex(subject1);
@@ -158,5 +161,35 @@ public class SubGraphs {
         duplication.addEdge(query, subject2, endEdge);
 
         return duplication;
+    }
+
+    public ListenableDirectedGraph<Node, SequenceEdge> dummyMotif() {
+        ListenableDirectedGraph<Node, SequenceEdge> dummy = new ListenableDirectedGraph<>(SequenceEdge.class);
+
+        QueryNode qStart = new QueryNode("qStart", 0, 0, 0, 0.0, 0.0, 0.0);
+        QueryNode qEnd = new QueryNode("qEnd", 0, 0, 0, 0.0, 0.0, 0.0);
+        SubjectNode sStart = new SubjectNode("sStart", 0, 0, 0, 0.0, 0.0, 0.0);
+        SubjectNode sEnd = new SubjectNode("sEnd", 0, 0, 0, 0.0, 0.0, 0.0);
+
+        dummy.addVertex(qStart);
+        dummy.addVertex(qEnd);
+        dummy.addVertex(sStart);
+        dummy.addVertex(sEnd);
+
+        SequenceEdge qMatch = new SequenceEdge(SequenceEdge.Type.NO_GAP);
+        SequenceEdge sGap = new SequenceEdge(SequenceEdge.Type.GAP);
+        SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge overlap1 = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge overlap2 = new SequenceEdge(SequenceEdge.Type.MATCH);
+
+        dummy.addEdge(qStart, qEnd, qMatch);
+        dummy.addEdge(sStart, sEnd, sGap);
+        dummy.addEdge(qStart, sStart, startEdge);
+        dummy.addEdge(qEnd, sEnd, endEdge);
+        dummy.addEdge(qStart, sEnd, overlap1);
+        dummy.addEdge(sStart, qEnd, overlap2);
+
+        return dummy;
     }
 }

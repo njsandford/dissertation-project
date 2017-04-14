@@ -1,6 +1,4 @@
-package uk.ac.ncl.njsandford.graph;
-
-import uk.ac.ncl.njsandford.graph.Node;
+package uk.ac.ncl.v1.njsandford.graph;
 
 /**
  * Created by Natalie on 19/03/2017.
