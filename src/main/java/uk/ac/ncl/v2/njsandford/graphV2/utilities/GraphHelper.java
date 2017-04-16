@@ -17,7 +17,6 @@ import java.util.Comparator;
  */
 public class GraphHelper {
 
-
     public ListenableDirectedGraph<BreakPoint, DefaultEdge> getGraphFromData(ArrayList<BlastData> graphData) {
         ListenableDirectedGraph<BreakPoint, DefaultEdge> graph = new ListenableDirectedGraph<BreakPoint, DefaultEdge>(DefaultEdge.class);
 
@@ -45,20 +44,32 @@ public class GraphHelper {
                 queryNodes.add(queryStart);
                 graph.addVertex(queryStart);
             }
+            else {
+                System.out.println("node exists!");
+            }
             queryEnd = dataToQueryEndNode(currentData);
             if (!queryNodes.contains(queryEnd)) {
                 queryNodes.add(queryEnd);
                 graph.addVertex(queryEnd);
+            }
+            else {
+                System.out.println("node exists!");
             }
             subjectStart = dataToSubjectStartNode(currentData);
             if (!subjectNodes.contains(subjectStart)) {
                 subjectNodes.add(subjectStart);
                 graph.addVertex(subjectStart);
             }
+            else {
+                System.out.println("node exists!");
+            }
             subjectEnd = dataToSubjectEndNode(currentData);
             if (!subjectNodes.contains(subjectEnd)) {
                 subjectNodes.add(subjectEnd);
                 graph.addVertex(subjectEnd);
+            }
+            else {
+                System.out.println("node exists!");
             }
 
             // Add all region edges.
@@ -66,17 +77,29 @@ public class GraphHelper {
             if (!graph.containsEdge(queryRegion) && !graph.containsEdge(queryStart, queryEnd)) {
                 graph.addEdge(queryStart, queryEnd, queryRegion);
             }
+            else {
+                System.out.println("region exists!" + queryRegion.toString());
+            }
             subjectRegion = dataToSubjectRegion(currentData);
             if (!graph.containsEdge(subjectRegion) && !graph.containsEdge(subjectStart, subjectEnd)) {
                 graph.addEdge(subjectStart, subjectEnd, subjectRegion);
+            }
+            else {
+                System.out.println("region exists!" + subjectRegion.toString());
             }
 
             // Add corresponding edges.
             if (!graph.containsEdge(queryStart, subjectStart)) {
                 graph.addEdge(queryStart, subjectStart, new CorrespondingEdge());
             }
+            else {
+                System.out.println("corresponding edge exists!");
+            }
             if (!graph.containsEdge(queryEnd, subjectEnd)) {
                 graph.addEdge(queryEnd, subjectEnd, new CorrespondingEdge());
+            }
+            else {
+                System.out.println("corresponding edge exists!");
             }
         }
 
@@ -91,29 +114,37 @@ public class GraphHelper {
         for (int i = 0; i < (queryNodes.size() - 1); i++) {
             currentNode = queryNodes.get(i);
             nextNode = queryNodes.get(i + 1);
-            if (!graph.containsEdge(currentNode, nextNode)) {
-                // Check the existing edges of the two nodes, to see if they overlap.
-                boolean gap = true;
-                for (DefaultEdge edge : graph.outgoingEdgesOf(currentNode)) {
-                    if ((graph.getEdgeTarget(edge).getType() == currentNode.getType()) && (graph.getEdgeTarget(edge).getPosition() > nextNode.getPosition())) {
-                        gap = false;
-                    }
-                }
-                if (gap) {
-                    graph.addEdge(currentNode, nextNode, new Gap());
-                }
-                else {
-                    graph.addEdge(currentNode, nextNode, new Overlap());
-                }
-            }
+            connectBreakPoints(graph, currentNode, nextNode);
         }
         BreakPoint nextSubject;
-        for (BreakPoint subjectNode : subjectNodes) {
-
+        for (int i = 0; i < (subjectNodes.size() - 1); i++) {
+            currentNode = subjectNodes.get(i);
+            nextNode = subjectNodes.get(i + 1);
+            connectBreakPoints(graph, currentNode, nextNode);
         }
 
         return graph;
     }
+
+    private void connectBreakPoints(ListenableDirectedGraph<BreakPoint, DefaultEdge> graph, BreakPoint currentNode, BreakPoint nextNode) {
+        // If the two nodes are not already connected, connect them with either a GAP or an OVERLAP edge.
+        if (!graph.containsEdge(currentNode, nextNode)) {
+            // Check the existing edges of the two nodes, to see if they overlap.
+            boolean gap = true;
+            for (DefaultEdge edge : graph.outgoingEdgesOf(currentNode)) {
+                if ((graph.getEdgeTarget(edge).getType() == currentNode.getType()) && (graph.getEdgeTarget(edge).getPosition() > nextNode.getPosition())) {
+                    gap = false;
+                }
+            }
+            if (gap) {
+                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.GAP, currentNode.getType())); // set sequence type!!
+            }
+            else {
+                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.OVERLAP, currentNode.getType())); // set sequence type!!
+            }
+        }
+    }
+
         /*
         // Add all nodes
         for (int i = 0; i < graphData.size(); i++) {
@@ -215,7 +246,7 @@ public class GraphHelper {
     }
 
     private BreakPoint dataToQueryEndNode(BlastData data) {
-        return new BreakPoint(SequenceType.QUERY, data.getQueryId(), data.getQueryEnd()); // + 1));
+        return new BreakPoint(SequenceType.QUERY, data.getQueryId(), (data.getQueryEnd() + 1));
     }
 
     private BreakPoint dataToSubjectStartNode(BlastData data) {
@@ -223,7 +254,7 @@ public class GraphHelper {
     }
 
     private BreakPoint dataToSubjectEndNode(BlastData data) {
-        return new BreakPoint(SequenceType.SUBJECT, data.getSubjectId(), data.getSubjectEnd()); // + 1));
+        return new BreakPoint(SequenceType.SUBJECT, data.getSubjectId(), (data.getSubjectEnd() + 1));
     }
 
     private Region dataToQueryRegion(BlastData data) {

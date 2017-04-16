@@ -40,7 +40,7 @@ public class BreakPoint {
         return position;
     }
 
-    protected void setPosition(int start) {
+    protected void setPosition(int position) {
         this.position = position;
     }
 
@@ -53,8 +53,28 @@ public class BreakPoint {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BreakPoint that = (BreakPoint) o;
+
+        if (getPosition() != that.getPosition()) return false;
+        if (!getSeqId().equals(that.getSeqId())) return false;
+        return getType() == that.getType();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getSeqId().hashCode();
+        result = 31 * result + getType().hashCode();
+        result = 31 * result + getPosition();
+        return result;
+    }
+
+    @Override
     public String toString()
     {
-        return getSeqId() + /* getSequenceType().toString() + */ ": " + position;
+        return getSeqId() + ": " + getPosition();
     }
 }

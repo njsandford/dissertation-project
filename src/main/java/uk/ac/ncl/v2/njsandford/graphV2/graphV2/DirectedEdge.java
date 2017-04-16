@@ -1,5 +1,6 @@
 package uk.ac.ncl.v2.njsandford.graphV2.graphV2;
 
+import org.jgrapht.demo.SequenceEdge;
 import org.jgrapht.graph.DefaultEdge;
 
 /**
@@ -7,23 +8,36 @@ import org.jgrapht.graph.DefaultEdge;
  */
 public class DirectedEdge extends DefaultEdge {
 
-    public Type edgeType;
-    public Direction direction;
+    protected Type edgeType;
+    protected SequenceType sequenceType;
+
+    public DirectedEdge(Type edgeType, SequenceType sequenceType) {
+        setType(edgeType);
+        setSequenceType(sequenceType);
+    }
 
     public enum Type {
-        REGION, GAP, OVERLAP, CORRESPONDS
+        REGION, GAP, OVERLAP
     }
 
     public enum Direction {
         FORWARDS, BACKWARDS
     }
 
-    protected void setType(Type edgeType) {
+    private void setType(Type edgeType) {
         this.edgeType = edgeType;
     }
 
     public Type getEdgeType() {
         return this.edgeType;
+    }
+
+    private void setSequenceType(SequenceType sequenceType) {
+        this.sequenceType = sequenceType;
+    }
+
+    public SequenceType getSequenceType() {
+        return this.sequenceType;
     }
 
     public Direction getDirection() {
@@ -41,5 +55,28 @@ public class DirectedEdge extends DefaultEdge {
     @Override
     public BreakPoint getTarget() {
         return (BreakPoint) super.getTarget();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DirectedEdge that = (DirectedEdge) o;
+
+        if (getEdgeType() != that.getEdgeType()) return false;
+        return getSequenceType() == that.getSequenceType();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getEdgeType().hashCode();
+        result = 31 * result + getSequenceType().hashCode();
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return getEdgeType().toString();
     }
 }
