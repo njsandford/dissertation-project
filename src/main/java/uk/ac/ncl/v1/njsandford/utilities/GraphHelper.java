@@ -48,6 +48,7 @@ public class GraphHelper {
         System.out.print("\n\n******** END Nodes *********");
 
         Node qNode;
+
         Node sNode;
 
         /*// Add vertical edges
@@ -103,8 +104,14 @@ public class GraphHelper {
             if(!qDuplicate){  //ensures a horizontal edge isn't added to the duplicated vertices that appear in the arrayList, vertices don't exist in the vertex set anyway.
                 graph.addEdge(qNode, qNodeNext, new SequenceEdge(gapCheck(qNode, qNodeNext)));
             }
+            else {
+                System.out.println("qDuplicate" + qDuplicate);
+            }
             if(!sDuplicate){
                 graph.addEdge(sNode, sNodeNext, new SequenceEdge(gapCheck(sNode, sNodeNext)));
+            }
+            else {
+                System.out.println("sDuplicate" + sDuplicate);
             }
 
             /*

@@ -1,19 +1,37 @@
-package uk.ac.ncl.v1.njsandford.test;
+package uk.ac.ncl.v2.njsandford.graphV2.test;
+
+import org.jgrapht.GraphMapping;
+import org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector;
+import org.jgrapht.graph.ListenableDirectedGraph;
+import uk.ac.ncl.v1.njsandford.graph.Node;
+import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
+import uk.ac.ncl.v1.njsandford.isomorphism.EdgeComparator;
+import uk.ac.ncl.v1.njsandford.isomorphism.NodeComparator;
+import uk.ac.ncl.v1.njsandford.isomorphism.SearchAlgorithms;
+import uk.ac.ncl.v1.njsandford.isomorphism.SubGraphs;
+import uk.ac.ncl.v1.njsandford.utilities.BlastData;
+//import uk.ac.ncl.v1.njsandford.utilities.GraphHelper;
+import uk.ac.ncl.v1.njsandford.utilities.ParseData;
+//import uk.ac.ncl.v1.njsandford.visualisation.GUI;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 import org.jgrapht.GraphMapping;
 import org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.ListenableDirectedGraph;
-import uk.ac.ncl.v1.njsandford.isomorphism.*;
+//import uk.ac.ncl.v1.njsandford.isomorphism.*;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
-import uk.ac.ncl.v1.njsandford.utilities.GraphHelper;
+//import uk.ac.ncl.v1.njsandford.utilities.GraphHelper;
 import uk.ac.ncl.v1.njsandford.utilities.ParseData;
-import uk.ac.ncl.v1.njsandford.visualisation.GUI;
-//import uk.ac.ncl.v2.njsandford.graphV2.visualisation.GUI;
+//import uk.ac.ncl.v1.njsandford.visualisation.GUI;
+import uk.ac.ncl.v2.njsandford.graphV2.visualisation.GUI;
 import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 import uk.ac.ncl.v2.njsandford.graphV2.graphV2.BreakPoint;
-//import uk.ac.ncl.v2.njsandford.graphV2.utilities.GraphHelper;
+import uk.ac.ncl.v2.njsandford.graphV2.utilities.GraphHelper;
 
 import java.util.*;
 
@@ -22,14 +40,14 @@ import java.util.*;
  */
 public class TestGraph {
 
-    //private static ListenableDirectedGraph<BreakPoint, DefaultEdge> graph;
-    private static ListenableDirectedGraph<Node, SequenceEdge> graph;
+    private static ListenableDirectedGraph<BreakPoint, DefaultEdge> graph;
+    //private static ListenableDirectedGraph<Node, SequenceEdge> graph;
 
     public static void main(String[] args) {
         //populateGraph = new PopulateGraph();
         //graph = populateGraph.getGraph();
 
-        TestGraph testGraph = new TestGraph();
+        uk.ac.ncl.v1.njsandford.test.TestGraph testGraph = new uk.ac.ncl.v1.njsandford.test.TestGraph();
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
