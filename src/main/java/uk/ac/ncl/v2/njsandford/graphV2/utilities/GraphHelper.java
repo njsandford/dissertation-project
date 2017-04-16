@@ -39,7 +39,13 @@ public class GraphHelper {
         for (BlastData currentData : graphData) {
 
             // Add break point nodes to graph and array lists.
-            queryStart = dataToQueryStartNode(currentData);
+            //queryStart = dataToQueryStartNode(currentData);
+            int queryStartPos = currentData.getQueryStart();
+            int queryEndPos = currentData.getQueryEnd();
+            int maxQuery = Math.max(queryStartPos, queryEndPos);
+            if (queryStartPos == maxQuery) { queryStartPos++; }
+            else { queryEndPos++; }
+            queryStart = new BreakPoint(SequenceType.QUERY, currentData.getQueryId(), queryStartPos);
             if (!queryNodes.contains(queryStart)) {
                 queryNodes.add(queryStart);
                 graph.addVertex(queryStart);
@@ -47,7 +53,8 @@ public class GraphHelper {
             else {
                 System.out.println("node exists!");
             }
-            queryEnd = dataToQueryEndNode(currentData);
+            //queryEnd = dataToQueryEndNode(currentData);
+            queryEnd = new BreakPoint(SequenceType.QUERY, currentData.getQueryId(), queryEndPos);
             if (!queryNodes.contains(queryEnd)) {
                 queryNodes.add(queryEnd);
                 graph.addVertex(queryEnd);
@@ -55,7 +62,13 @@ public class GraphHelper {
             else {
                 System.out.println("node exists!");
             }
-            subjectStart = dataToSubjectStartNode(currentData);
+            int subjectStartPos = currentData.getSubjectStart();
+            int subjectEndPos = currentData.getSubjectEnd();
+            int maxSubject = Math.max(subjectStartPos, subjectEndPos);
+            if (subjectStartPos == maxSubject) { subjectStartPos++; }
+            else { subjectEndPos++; }
+            //subjectStart = dataToSubjectStartNode(currentData);
+            subjectStart = new BreakPoint(SequenceType.SUBJECT, currentData.getSubjectId(), subjectStartPos);
             if (!subjectNodes.contains(subjectStart)) {
                 subjectNodes.add(subjectStart);
                 graph.addVertex(subjectStart);
@@ -63,7 +76,8 @@ public class GraphHelper {
             else {
                 System.out.println("node exists!");
             }
-            subjectEnd = dataToSubjectEndNode(currentData);
+            //subjectEnd = dataToSubjectEndNode(currentData);
+            subjectEnd = new BreakPoint(SequenceType.SUBJECT, currentData.getSubjectId(), subjectEndPos);
             if (!subjectNodes.contains(subjectEnd)) {
                 subjectNodes.add(subjectEnd);
                 graph.addVertex(subjectEnd);
@@ -116,7 +130,6 @@ public class GraphHelper {
             nextNode = queryNodes.get(i + 1);
             connectBreakPoints(graph, currentNode, nextNode);
         }
-        BreakPoint nextSubject;
         for (int i = 0; i < (subjectNodes.size() - 1); i++) {
             currentNode = subjectNodes.get(i);
             nextNode = subjectNodes.get(i + 1);
@@ -128,19 +141,20 @@ public class GraphHelper {
 
     private void connectBreakPoints(ListenableDirectedGraph<BreakPoint, DefaultEdge> graph, BreakPoint currentNode, BreakPoint nextNode) {
         // If the two nodes are not already connected, connect them with either a GAP or an OVERLAP edge.
-        if (!graph.containsEdge(currentNode, nextNode)) {
+        if (!graph.containsEdge(currentNode, nextNode) && !graph.containsEdge(nextNode, currentNode)) {
+            SequenceType currentType = currentNode.getType();
             // Check the existing edges of the two nodes, to see if they overlap.
             boolean gap = true;
             for (DefaultEdge edge : graph.outgoingEdgesOf(currentNode)) {
-                if ((graph.getEdgeTarget(edge).getType() == currentNode.getType()) && (graph.getEdgeTarget(edge).getPosition() > nextNode.getPosition())) {
+                if ((graph.getEdgeTarget(edge).getType() == currentType) && (graph.getEdgeTarget(edge).getPosition() > nextNode.getPosition())) {
                     gap = false;
                 }
             }
             if (gap) {
-                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.GAP, currentNode.getType())); // set sequence type!!
+                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.GAP, currentType, currentNode.getPosition(), nextNode.getPosition())); // set sequence type!!
             }
             else {
-                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.OVERLAP, currentNode.getType())); // set sequence type!!
+                graph.addEdge(currentNode, nextNode, new DirectedEdge(DirectedEdge.Type.OVERLAP, currentType, currentNode.getPosition(), nextNode.getPosition())); // set sequence type!!
             }
         }
     }

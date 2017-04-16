@@ -10,7 +10,7 @@
 // */
 //public class EdgeComparator extends Comparator<DefaultEdge> {
 //
-//    public int compare(DefaultEdge o1, DefaultEdge o2) {
+//    public int compare(DirectedEdge o1, DirectedEdge o2) {
 //        if (o1.)
 //
 //        return 0;

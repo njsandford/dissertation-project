@@ -10,10 +10,16 @@ public class DirectedEdge extends DefaultEdge {
 
     protected Type edgeType;
     protected SequenceType sequenceType;
+    protected int startPos;
+    protected int endPos;
+    protected Direction direction;
 
-    public DirectedEdge(Type edgeType, SequenceType sequenceType) {
+    public DirectedEdge(Type edgeType, SequenceType sequenceType, int startPos, int endPos) {
         setType(edgeType);
         setSequenceType(sequenceType);
+        setStartPos(startPos);
+        setEndPos(endPos);
+        setDirection();
     }
 
     public enum Type {
@@ -40,11 +46,29 @@ public class DirectedEdge extends DefaultEdge {
         return this.sequenceType;
     }
 
+    public int getStartPos() {
+        return startPos;
+    }
+
+    public void setStartPos(int startPos) {
+        this.startPos = startPos;
+    }
+
+    public int getEndPos() {
+        return endPos;
+    }
+
+    public void setEndPos(int endPos) {
+        this.endPos = endPos;
+    }
+
+    private void setDirection() {
+        if (getStartPos() < getEndPos()) { this.direction = Direction.FORWARDS; }
+        else this.direction = Direction.BACKWARDS;
+    }
+
     public Direction getDirection() {
-        if (getSource().getPosition() < getTarget().getPosition()) {
-            return Direction.FORWARDS;
-        }
-        else return Direction.BACKWARDS;
+        return this.direction;
     }
 
     @Override
@@ -64,14 +88,20 @@ public class DirectedEdge extends DefaultEdge {
 
         DirectedEdge that = (DirectedEdge) o;
 
+        if (getStartPos() != that.getStartPos()) return false;
+        if (getEndPos() != that.getEndPos()) return false;
         if (getEdgeType() != that.getEdgeType()) return false;
-        return getSequenceType() == that.getSequenceType();
+        if (getSequenceType() != that.getSequenceType()) return false;
+        return getDirection() == that.getDirection();
     }
 
     @Override
     public int hashCode() {
         int result = getEdgeType().hashCode();
         result = 31 * result + getSequenceType().hashCode();
+        result = 31 * result + getStartPos();
+        result = 31 * result + getEndPos();
+        result = 31 * result + getDirection().hashCode();
         return result;
     }
 
