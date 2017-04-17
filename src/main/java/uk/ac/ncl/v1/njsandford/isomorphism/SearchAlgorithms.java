@@ -41,7 +41,7 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
         inversion = subGraphs.inversion();
     }
 
-    public List<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(ListenableDirectedGraph<Node, SequenceEdge> graph, SubgraphMotif motif) {
+    public List<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(SubgraphMotif motif) {
 
         switch (motif) {
             case MATCH:

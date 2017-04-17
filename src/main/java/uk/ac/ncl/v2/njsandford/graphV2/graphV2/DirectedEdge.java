@@ -6,7 +6,7 @@ import org.jgrapht.graph.DefaultEdge;
 /**
  * Created by Natalie on 16/04/2017.
  */
-public class DirectedEdge extends DefaultEdge {
+public class DirectedEdge extends DefaultEdge implements Comparable<> {
 
     protected Type edgeType;
     protected SequenceType sequenceType;
@@ -104,6 +104,8 @@ public class DirectedEdge extends DefaultEdge {
         result = 31 * result + getDirection().hashCode();
         return result;
     }
+
+
 
     @Override
     public String toString() {

@@ -42,29 +42,29 @@ public class TestGraph {
         /*
         SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph);
         System.out.println("MATCH:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.MATCH));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
         System.out.println("DELETION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DELETION));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
         System.out.println("INSERTION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.INSERTION));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INSERTION));
         System.out.println("VARIATION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.VARIATION));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.VARIATION));
         System.out.println("DUPLICATION_IN_QUERY:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DUPLICATION_IN_QUERY));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
         System.out.println("DUPLICATION_IN_SUBJECT:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DUPLICATION_IN_SUBJECT));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
         System.out.println("INVERSION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.INVERSION));
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION));
 /**/
         /*SubGraphs subGraphs = new SubGraphs();
-        testGraph.testAlgorithm(graph, subGraphs.match(), "Match");
-        testGraph.testAlgorithm(graph, subGraphs.variation(), "Variation");
-        testGraph.testAlgorithm(graph, subGraphs.deletion(), "Deletion");
-        testGraph.testAlgorithm(graph, subGraphs.insertion(), "Insertion");
-        testGraph.testAlgorithm(graph, subGraphs.duplicationInQuery(), "Duplication in Query");
-        testGraph.testAlgorithm(graph, subGraphs.duplicationInSearch(), "Duplication in Subject");
-        testGraph.testAlgorithm(graph, subGraphs.inversion(), "Inversion");
-        testGraph.testAlgorithm(graph, subGraphs.dummyMotif(), "Dummy Motif");
+        testGraph.testAlgorithm(subGraphs.match(), "Match");
+        testGraph.testAlgorithm(subGraphs.variation(), "Variation");
+        testGraph.testAlgorithm(subGraphs.deletion(), "Deletion");
+        testGraph.testAlgorithm(subGraphs.insertion(), "Insertion");
+        testGraph.testAlgorithm(subGraphs.duplicationInQuery(), "Duplication in Query");
+        testGraph.testAlgorithm(subGraphs.duplicationInSearch(), "Duplication in Subject");
+        testGraph.testAlgorithm(subGraphs.inversion(), "Inversion");
+        testGraph.testAlgorithm(subGraphs.dummyMotif(), "Dummy Motif");
 
 
         ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMatches = searchAlgorithms.subgraphSearch(graph, subGraphs.match());

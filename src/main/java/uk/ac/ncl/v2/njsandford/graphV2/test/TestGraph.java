@@ -27,6 +27,7 @@ import uk.ac.ncl.v1.njsandford.utilities.BlastData;
 //import uk.ac.ncl.v1.njsandford.utilities.GraphHelper;
 import uk.ac.ncl.v1.njsandford.utilities.ParseData;
 //import uk.ac.ncl.v1.njsandford.visualisation.GUI;
+import uk.ac.ncl.v2.njsandford.graphV2.isomorphism.SubgraphMatching;
 import uk.ac.ncl.v2.njsandford.graphV2.visualisation.GUI;
 import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
@@ -57,23 +58,28 @@ public class TestGraph {
         GraphHelper graphHelper = new GraphHelper();
         graph = graphHelper.getGraphFromData(graphData);
 
-        /*
-        SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph);
+        SubgraphMatching subgraphMatching = new SubgraphMatching(graph);
         System.out.println("MATCH:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.MATCH));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.MATCH));
         System.out.println("DELETION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DELETION));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.DELETION));
         System.out.println("INSERTION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.INSERTION));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INSERTION));
         System.out.println("VARIATION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.VARIATION));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.VARIATION));
         System.out.println("DUPLICATION_IN_QUERY:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DUPLICATION_IN_QUERY));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.DUPLICATION_IN_QUERY));
         System.out.println("DUPLICATION_IN_SUBJECT:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.DUPLICATION_IN_SUBJECT));
-        System.out.println("INVERSION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(graph, SubgraphMotif.INVERSION));
-/**/
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.DUPLICATION_IN_SUBJECT));
+        System.out.println("DUPLICATION_IN_QUERY_CON:");
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.DUPLICATION_IN_QUERY_CON));
+        System.out.println("DUPLICATION_IN_SUBJECT_CON:");
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.DUPLICATION_IN_SUBJECT_CON));
+        System.out.println("INVERSION_IN_QUERY:");
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INVERSION_IN_QUERY));
+        System.out.println("INVERSION_IN_SUBJECT:");
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INVERSION_IN_QUERY));
+/**//*
         /*SubGraphs subGraphs = new SubGraphs();
         testGraph.testAlgorithm(graph, subGraphs.match(), "Match");
         testGraph.testAlgorithm(graph, subGraphs.variation(), "Variation");
