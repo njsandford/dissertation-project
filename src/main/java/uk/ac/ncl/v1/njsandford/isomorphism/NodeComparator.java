@@ -11,6 +11,12 @@ public class NodeComparator implements Comparator<Node> {
 
     @Override
     public int compare(Node node1, Node node2) {
+        if (node1.getNodeType() == node2.getNodeType()) {
+            if (node1.getDirection() == node2.getDirection()) {
+                return 0;
+            }
+        }
+        return -1;
 //        if (node1.getSequenceType() == null || node2.getSequenceType() == null)
 //        {
 //            return 1;
@@ -19,6 +25,6 @@ public class NodeComparator implements Comparator<Node> {
 //            return -1;
 //        }
 //        return 0;
-        return node1.getNodeType().compareTo(node2.getNodeType());
+        //return node1.getNodeType().compareTo(node2.getNodeType());
     }
 }

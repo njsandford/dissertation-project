@@ -23,8 +23,8 @@ public class SubgraphMatching {
 
     private VF2SubgraphIsomorphismInspector isomorphismInspector;
 
-    //private BreakPointComparator breakPointComparator;
-    //private EdgeComparator edgeComparator;
+    private BreakPointComparator breakPointComparator;
+    private EdgeComparator edgeComparator;
 
     private ListenableDirectedGraph<BreakPoint, DefaultEdge> match;
     private ListenableDirectedGraph<BreakPoint, DefaultEdge> variation;
@@ -39,8 +39,8 @@ public class SubgraphMatching {
 
     public SubgraphMatching(ListenableDirectedGraph<BreakPoint, DefaultEdge> graph) {
         this.graph = graph;
-        //this.nodeComparator = new NodeComparator();
-        //this.edgeComparator = new EdgeComparator();
+        this.breakPointComparator = new BreakPointComparator();
+        this.edgeComparator = new EdgeComparator();
         match = match();
         variation = variation();
         deletion = deletion();
@@ -57,34 +57,34 @@ public class SubgraphMatching {
 
         switch (motif) {
             case MATCH:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, match);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, match, breakPointComparator, edgeComparator);
                 break;
             case VARIATION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, variation);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, variation, breakPointComparator, edgeComparator);
                 break;
             case DELETION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, deletion);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, deletion, breakPointComparator, edgeComparator);
                 break;
             case INSERTION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, insertion);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, insertion, breakPointComparator, edgeComparator);
                 break;
             case DUPLICATION_IN_QUERY:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQueryNonConsecutive);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQueryNonConsecutive, breakPointComparator, edgeComparator);
                 break;
             case DUPLICATION_IN_SUBJECT:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubjectConsecutive);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubjectNonConsecutive, breakPointComparator, edgeComparator);
                 break;
             case DUPLICATION_IN_QUERY_CON:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQueryNonConsecutive);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQueryConsecutive, breakPointComparator, edgeComparator);
                 break;
             case DUPLICATION_IN_SUBJECT_CON:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubjectConsecutive);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubjectConsecutive, breakPointComparator, edgeComparator);
                 break;
             case INVERSION_IN_QUERY:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery, breakPointComparator, edgeComparator);
                 break;
             case INVERSION_IN_SUBJECT:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject);//, breakPointComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject, breakPointComparator, edgeComparator);
                 break;
         }
 
@@ -243,7 +243,7 @@ public class SubgraphMatching {
         CorrespondingEdge endCorrespond = new CorrespondingEdge();
 
         deletion.addEdge(qStart, sStart, startCorrespond);
-        deletion.addEdge(qStart, sStart, endCorrespond);
+        deletion.addEdge(qEnd, sStart, endCorrespond);
 
         DirectedEdge queryGap = new DirectedEdge(DirectedEdge.Type.GAP, SequenceType.QUERY, 1, 2);
 
@@ -276,7 +276,7 @@ public class SubgraphMatching {
         CorrespondingEdge endCorrespondRhs = new CorrespondingEdge();
 
         duplication.addEdge(qStartLhs, sStart, startCorrespondLhs);
-        duplication.addEdge(qStartLhs, sStart, endCorrespondLhs);
+        duplication.addEdge(qEndLhs, sEnd, endCorrespondLhs);
         duplication.addEdge(qStartRhs, sStart, startCorrespondRhs);
         duplication.addEdge(qEndRhs, sEnd, endCorrespondRhs);
 
@@ -422,7 +422,7 @@ public class SubgraphMatching {
         CorrespondingEdge endCorrespond = new CorrespondingEdge();
 
         inversion.addEdge(qStart, sStart, startCorrespond);
-        inversion.addEdge(qStart, sStart, endCorrespond);
+        inversion.addEdge(qEnd, sEnd, endCorrespond);
 
         DirectedEdge queryRegion = new Region(SequenceType.QUERY, "testQuery", 2, 1, 0, 0, 0, 0);
         DirectedEdge subjectRegion = new Region(SequenceType.SUBJECT, "testSubject", 1, 2, 0 ,0 ,0 ,0);
@@ -451,7 +451,7 @@ public class SubgraphMatching {
         CorrespondingEdge endCorrespond = new CorrespondingEdge();
 
         inversion.addEdge(qStart, sStart, startCorrespond);
-        inversion.addEdge(qStart, sStart, endCorrespond);
+        inversion.addEdge(qEnd, sEnd, endCorrespond);
 
         DirectedEdge queryRegion = new Region(SequenceType.QUERY, "testQuery", 1, 2, 0, 0, 0, 0);
         DirectedEdge subjectRegion = new Region(SequenceType.SUBJECT, "testSubject", 2, 1, 0 ,0 ,0 ,0);

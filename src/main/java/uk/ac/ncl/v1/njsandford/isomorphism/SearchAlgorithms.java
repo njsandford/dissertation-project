@@ -25,7 +25,8 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
     private ListenableDirectedGraph<Node, SequenceEdge> insertion;
     private ListenableDirectedGraph<Node, SequenceEdge> duplicationInQuery;
     private ListenableDirectedGraph<Node, SequenceEdge> duplicationInSubject;
-    private ListenableDirectedGraph<Node, SequenceEdge> inversion;
+    private ListenableDirectedGraph<Node, SequenceEdge> inversionInQuery;
+    private ListenableDirectedGraph<Node, SequenceEdge> inversionInSubject;
 
     public SearchAlgorithms(ListenableDirectedGraph<Node, SequenceEdge> graph) {
         this.graph = graph;
@@ -38,7 +39,8 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
         insertion = subGraphs.insertion();
         duplicationInQuery = subGraphs.duplicationInQuery();
         duplicationInSubject = subGraphs.duplicationInSearch();
-        inversion = subGraphs.inversion();
+        inversionInQuery = subGraphs.inversionInQuery();
+        inversionInSubject = subGraphs.inversionInSubject();
     }
 
     public List<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(SubgraphMotif motif) {
@@ -62,8 +64,11 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
             case DUPLICATION_IN_SUBJECT:
                 isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubject, nodeComparator, edgeComparator);
                 break;
-            case INVERSION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversion, nodeComparator, edgeComparator);
+            case INVERSION_IN_QUERY:
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery, nodeComparator, edgeComparator);
+                break;
+            case INVERSION_IN_SUBJECT:
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject, nodeComparator, edgeComparator);
                 break;
         }
 

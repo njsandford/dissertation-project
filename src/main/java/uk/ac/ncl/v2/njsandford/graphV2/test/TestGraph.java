@@ -78,7 +78,7 @@ public class TestGraph {
         System.out.println("INVERSION_IN_QUERY:");
         subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INVERSION_IN_QUERY));
         System.out.println("INVERSION_IN_SUBJECT:");
-        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INVERSION_IN_QUERY));
+        subgraphMatching.printMappingList(subgraphMatching.findMotif(graph, SubgraphMatching.Motif.INVERSION_IN_SUBJECT));
 /**//*
         /*SubGraphs subGraphs = new SubGraphs();
         testGraph.testAlgorithm(graph, subGraphs.match(), "Match");
@@ -97,8 +97,17 @@ public class TestGraph {
 
         System.out.println("Graph:\n" + graph.toString());
 
-        GUI gui = new GUI(graph, graphData);
-        //gui.openGUI();
+        GUI gui = new GUI(graph);//, graphData);
+        GUI match = new GUI(subgraphMatching.match());
+        GUI deletion = new GUI(subgraphMatching.deletion());
+        GUI insertion = new GUI(subgraphMatching.insertion());
+        GUI variation = new GUI(subgraphMatching.variation());
+        GUI duplicationInQueryNonConsecutive = new GUI(subgraphMatching.duplicationInQueryNonConsecutive());
+        GUI duplicationInSubjectNonConsecutive = new GUI(subgraphMatching.duplicationInSubjectNonConsecutive());
+        GUI duplicationInQueryConsecutive = new GUI(subgraphMatching.duplicationInQueryConsecutive());
+        GUI duplicationInSubjectConsecutive = new GUI(subgraphMatching.duplicationInSubjectConsecutive());
+        GUI inversionInQuery = new GUI(subgraphMatching.inversionInQuery());
+        GUI inversionInSubject = new GUI(subgraphMatching.inversionInSubject());
 /**/
 
         //populateGraph.run();

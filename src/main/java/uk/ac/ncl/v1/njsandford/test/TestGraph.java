@@ -2,18 +2,14 @@ package uk.ac.ncl.v1.njsandford.test;
 
 import org.jgrapht.GraphMapping;
 import org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector;
-import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.isomorphism.*;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
 import uk.ac.ncl.v1.njsandford.utilities.GraphHelper;
 import uk.ac.ncl.v1.njsandford.utilities.ParseData;
 import uk.ac.ncl.v1.njsandford.visualisation.GUI;
-//import uk.ac.ncl.v2.njsandford.graphV2.visualisation.GUI;
 import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
-import uk.ac.ncl.v2.njsandford.graphV2.graphV2.BreakPoint;
-//import uk.ac.ncl.v2.njsandford.graphV2.utilities.GraphHelper;
 
 import java.util.*;
 
@@ -33,13 +29,13 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<BlastData> graphData = parseData.readBlastFile("EZSNZXSJ11N-Alignment-HitTable.csv");//"NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
         graph = graphHelper.getGraphFromData(graphData);
 
-        /*
+
         SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph);
         System.out.println("MATCH:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
@@ -53,9 +49,11 @@ public class TestGraph {
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
         System.out.println("DUPLICATION_IN_SUBJECT:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
-        System.out.println("INVERSION:");
-        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION));
-/**/
+        System.out.println("INVERSION_IN_QUERY:");
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY));
+        System.out.println("INVERSION_IN_SUBJECT:");
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
+/**//*
         /*SubGraphs subGraphs = new SubGraphs();
         testGraph.testAlgorithm(subGraphs.match(), "Match");
         testGraph.testAlgorithm(subGraphs.variation(), "Variation");
@@ -73,9 +71,19 @@ public class TestGraph {
 
         System.out.println("Graph:\n" + graph.toString());
 
+        SubGraphs subGraphs = new SubGraphs();
+
         GUI gui = new GUI(graph, graphData);
+/*        GUI match = new GUI(subGraphs.match(), graphData);
+        GUI deletion = new GUI(subGraphs.deletion(), graphData);
+        GUI insertion = new GUI(subGraphs.insertion(), graphData);
+        GUI variation = new GUI(subGraphs.variation(), graphData);
+        GUI duplicationInQueryNonConsecutive = new GUI(subGraphs.duplicationInQuery(), graphData);
+        GUI duplicationInSubjectNonConsecutive = new GUI(subGraphs.duplicationInSearch(), graphData);
+        GUI inversionInQuery = new GUI(subGraphs.inversionInQuery(), graphData);
+        GUI inversionInSubject = new GUI(subGraphs.inversionInSubject(), graphData);
         //gui.openGUI();
-/**/
+*/
 
         //populateGraph.run();
         //initialiseGraph();

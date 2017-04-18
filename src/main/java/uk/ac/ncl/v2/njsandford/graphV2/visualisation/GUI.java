@@ -65,12 +65,12 @@ public class GUI {
     private JFrame frame;
     private ListenableDirectedGraph<BreakPoint, DefaultEdge> graph;
     private JGraphXAdapter<BreakPoint, DefaultEdge> jGraph;
-    private List<BlastData> graphData;
+//    private List<BlastData> graphData;
 
-    public GUI(ListenableDirectedGraph<BreakPoint, DefaultEdge> graph, List<BlastData> graphData) {
+    public GUI(ListenableDirectedGraph<BreakPoint, DefaultEdge> graph) {//}, List<BlastData> graphData) {
         this.graph = graph;
         this.jGraph = new JGraphXAdapter<>(graph);
-        this.graphData = graphData;
+//        this.graphData = graphData;
         graphVisualisation();
         initGUI();
     }
@@ -124,6 +124,7 @@ public class GUI {
 
         //panel.setBounds(0, 20, getScreenWorkingWidth(), 520);
 
+        /*
         JLabel qID = new JLabel(" Query Sequence: " + graphData.get(0).getQueryId() + " ");
         qID.setOpaque(true);
         qID.setBackground(new Color(153, 153, 255));
@@ -145,7 +146,7 @@ public class GUI {
         c.gridx = 0;
         c.gridy = 2;
         panel.add(sID, c);
-
+*/
         JButton refineSearch = new JButton("Refine Search");
         final UserInputListener ui = new UserInputListener(panel);
         refineSearch.addActionListener(ui);

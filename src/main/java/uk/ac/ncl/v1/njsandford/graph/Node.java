@@ -14,6 +14,7 @@ public class Node {
     protected double identity;
     protected double eValue;
     protected double bitScore;
+    protected Direction direction;
     protected ArrayList<SequenceEdge> sequenceEdges;
 
     public Node(Type nodeType, String seqId, int start, int end, int alignmentLength, double identity, double eValue, double bitScore) {
@@ -25,7 +26,12 @@ public class Node {
         setIdentity(identity);
         seteValue(eValue);
         setBitScore(bitScore);
+        setDirection();
         sequenceEdges = new ArrayList<>();
+    }
+
+    public enum Direction {
+        FORWARDS, BACKWARDS
     }
 
     public enum Type {
@@ -101,6 +107,17 @@ public class Node {
         sequenceEdges.add(edge);
     }
 
+    private void setDirection() {
+        if (getStart() < getEnd()) {
+            this.direction = Direction.FORWARDS;
+        }
+        else this.direction = Direction.BACKWARDS;
+    }
+
+    public Direction getDirection() {
+        return this.direction;
+    }
+
     public ArrayList<SequenceEdge> getSequenceEdges() {
         return sequenceEdges;
     }
@@ -146,6 +163,6 @@ public class Node {
     @Override
     public String toString()
     {
-        return getSeqId() + /* getSequenceType().toString() + */ ": " + start + " - "  + end;
+        return /*getSeqId() + */ getNodeType().toString() + ": " + start + " - "  + end;
     }
 }

@@ -51,38 +51,10 @@ public class GUI {
     }
 
     public void initGUI() {
-        /*frame = new JFrame("Rearrangement Types");
-        final JPanel panel = new JPanel(new GridBagLayout());
-
-        JGraphXAdapter<Node, SequenceEdge> jGraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
-        final mxGraphComponent graphComponent = new mxGraphComponent(jGraph);
-
-
-        GridBagConstraints c = new GridBagConstraints();
-        c.fill = GridBagConstraints.BOTH;
-        c.anchor = GridBagConstraints.NORTHWEST;
-        c.ipady = 400;
-        c.weightx = 1.0;
-        c.gridwidth = 2;
-        c.gridx = 0;
-        c.gridy = 0;
-        panel.add(graphComponent, c);
-        panel.setPreferredSize(new Dimension(getScreenWorkingWidth() - 20, getScreenWorkingHeight() - 45));
-        frame.add(panel);*/
-
 
         JFrame frame = new JFrame("Rearrangement Types");
         final JPanel panel = new JPanel(new GridBagLayout());
 
-        //		PopulateGraph pg = new PopulateGraph();
-        //		pg.dataToGraph();
-        //		//pg.graph();
-        //		pg.graphVisualisation();
-
-        // JGraphXAdapter<Node, SequenceEdge> graph = pg.getGraph();
-        // ListenableDirectedGraph<Node, SequenceEdge> g = pg.getListenableGraph();
-
-        //JGraphXAdapter<Node, SequenceEdge> jGraph = new JGraphXAdapter<Node, SequenceEdge>(graph);
         final mxGraphComponent graphComponent = new mxGraphComponent(jGraph);
 
 
@@ -96,8 +68,6 @@ public class GUI {
         c.gridy = 0;
         panel.add(graphComponent, c);
         panel.setPreferredSize(new Dimension(getScreenWorkingWidth()-20, getScreenWorkingHeight()-45));
-
-        //panel.setBounds(0, 20, getScreenWorkingWidth(), 520);
 
         JLabel qID = new JLabel(" Query Sequence: " + graphData.get(0).getQueryId() + " ");
         qID.setOpaque(true);
@@ -366,17 +336,17 @@ public class GUI {
             for (int i = 0; i< jGraph.getVertexToCellMap().values().size(); i++) //mxCell cell : jGraph.getVertexToCellMap().values())
             {
                 //cell.getValue();
-                if(cell2.getValue().toString().equals("NEXT_MATCH_GAP"))
+                if(cell2.getValue().toString().equals("GAP"))
                 {
                     jGraph.getModel().setStyle(cell2,"LABEL;dashed=1;strokeColor=#990099;spacingBottom=-15");
                 }
             }
 
-            if(cell2.getValue().toString().equals("NEXT_MATCH"))
+            if(cell2.getValue().toString().equals("NO_GAP"))
             {
                 jGraph.getModel().setStyle(cell2,"LABEL;strokeColor=#990099;spacingBottom=-15");
 
-            }else if(cell2.getValue().toString().equals("CORRESPONDS_TO"))
+            }else if(cell2.getValue().toString().equals("MATCH"))
             {
                 jGraph.getModel().setStyle(cell2,"LABEL;strokeColor=#6600FF");
             }
