@@ -95,10 +95,10 @@ public class TestGraph {
         System.out.println("\nFound Matches: " + foundMatches);
         */
 
-        System.out.println("Graph:\n" + graph.toString());
+//        System.out.println("Graph:\n" + graph.toString());
 
         GUI gui = new GUI(graph);//, graphData);
-        GUI match = new GUI(subgraphMatching.match());
+/*        GUI match = new GUI(subgraphMatching.match());
         GUI deletion = new GUI(subgraphMatching.deletion());
         GUI insertion = new GUI(subgraphMatching.insertion());
         GUI variation = new GUI(subgraphMatching.variation());
@@ -108,7 +108,7 @@ public class TestGraph {
         GUI duplicationInSubjectConsecutive = new GUI(subgraphMatching.duplicationInSubjectConsecutive());
         GUI inversionInQuery = new GUI(subgraphMatching.inversionInQuery());
         GUI inversionInSubject = new GUI(subgraphMatching.inversionInSubject());
-/**/
+*/
 
         //populateGraph.run();
         //initialiseGraph();
