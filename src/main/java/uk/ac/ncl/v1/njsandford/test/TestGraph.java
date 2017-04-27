@@ -29,7 +29,7 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<BlastData> graphData = parseData.readBlastFile("NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"CV86YM68113-Alignment-HitTable.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
@@ -69,7 +69,7 @@ public class TestGraph {
         System.out.println("\nFound Matches: " + foundMatches);
         */
 
-        System.out.println("Graph:\n" + graph.toString());
+        //System.out.println("Graph:\n" + graph.toString());
 
         SubGraphs subGraphs = new SubGraphs();
 
