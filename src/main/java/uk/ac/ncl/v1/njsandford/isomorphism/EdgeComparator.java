@@ -19,6 +19,9 @@ public class EdgeComparator implements Comparator<SequenceEdge> {
 //            return -1;
 //        }
 //        return 0;
-        return edge1.getEdgeType().compareTo(edge2.getEdgeType());
+        if (((edge1.getEdgeType() == SequenceEdge.Type.DEFAULT) && (edge2.getEdgeType() != SequenceEdge.Type.MATCH)) || ((edge2.getEdgeType() == SequenceEdge.Type.DEFAULT) && (edge1.getEdgeType() != SequenceEdge.Type.MATCH))) {
+            return 0;
+        }
+        else return edge1.getEdgeType().compareTo(edge2.getEdgeType());
     }
 }

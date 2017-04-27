@@ -16,7 +16,7 @@ public class SequenceEdge extends DefaultEdge {
 
     public enum Type {
 
-        GAP, NO_GAP, MATCH, OVERLAP, INVERSION;
+        GAP, NO_GAP, MATCH, OVERLAP, DEFAULT
     }
 
     @Override

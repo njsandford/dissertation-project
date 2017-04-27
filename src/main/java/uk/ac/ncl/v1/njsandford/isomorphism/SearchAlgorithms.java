@@ -25,6 +25,8 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
     private ListenableDirectedGraph<Node, SequenceEdge> insertion;
     private ListenableDirectedGraph<Node, SequenceEdge> duplicationInQuery;
     private ListenableDirectedGraph<Node, SequenceEdge> duplicationInSubject;
+    private ListenableDirectedGraph<Node, SequenceEdge> conDuplicationInQuery;
+    private ListenableDirectedGraph<Node, SequenceEdge> conDuplicationInSubject;
     private ListenableDirectedGraph<Node, SequenceEdge> inversionInQuery;
     private ListenableDirectedGraph<Node, SequenceEdge> inversionInSubject;
 
@@ -39,11 +41,13 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
         insertion = subGraphs.insertion();
         duplicationInQuery = subGraphs.duplicationInQuery();
         duplicationInSubject = subGraphs.duplicationInSearch();
+        conDuplicationInQuery = subGraphs.consecutiveDuplicationInQuery();
+        conDuplicationInSubject = subGraphs.consecutiveDuplicationInSearch();
         inversionInQuery = subGraphs.inversionInQuery();
         inversionInSubject = subGraphs.inversionInSubject();
     }
 
-    public List<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(SubgraphMotif motif) {
+    public Set<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(SubgraphMotif motif) {
 
         switch (motif) {
             case MATCH:
@@ -64,6 +68,12 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
             case DUPLICATION_IN_SUBJECT:
                 isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubject, nodeComparator, edgeComparator);
                 break;
+            case CON_DUPLICATION_IN_QUERY:
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInQuery, nodeComparator, edgeComparator);
+                break;
+            case CON_DUPLICATION_IN_SUBJECT:
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInSubject, nodeComparator, edgeComparator);
+                break;
             case INVERSION_IN_QUERY:
                 isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery, nodeComparator, edgeComparator);
                 break;
@@ -74,12 +84,20 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
 
         Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator = isomorphismInspector.getMappings();
 
-        return mappingToList(mappingIterator);
+        //return mappingToList(mappingIterator);
+        return mappingToSet(mappingIterator);
     }
 
     public void printMappingList(List<ListenableDirectedGraph<Node, SequenceEdge>> mappingList) {
         int count = 1;
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingList) {
+            System.out.println(count++ + ": " + subgraph);
+        }
+    }
+
+    public void printMappingSet(Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingSet) {
+        int count = 1;
+        for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
             System.out.println(count++ + ": " + subgraph);
         }
     }
@@ -95,6 +113,19 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
         }
 
         return mappingList;
+    }
+
+    public Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingToSet(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {
+        Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingSet = new HashSet<>();
+
+        if (isomorphismInspector.isomorphismExists()) {
+            for (Iterator<GraphMapping<Node, SequenceEdge>> iter = mappingIterator; iter.hasNext();) {
+                ListenableDirectedGraph<Node, SequenceEdge> subgraphMatch = getMappingSubgraph(iter.next());
+                mappingSet.add(subgraphMatch);
+            }
+        }
+
+        return mappingSet;
     }
 
     public ListenableDirectedGraph<Node, SequenceEdge> getMappingSubgraph(GraphMapping<Node, SequenceEdge> mapping) {
@@ -122,34 +153,4 @@ public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
 
         return subgraph;
     }
-    /*
-    public ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> subgraphSearch(ListenableDirectedGraph<Node, SequenceEdge> searchGraph, ListenableDirectedGraph<Node, SequenceEdge> subGraph) {
-        ArrayList<ListenableDirectedGraph<Node, SequenceEdge>> foundMatches = new ArrayList<>();
-
-        Set<Node> nodes = searchGraph.vertexSet();
-        Set<SequenceEdge> edges;
-
-        for (Node node: nodes) {
-            edges = searchGraph.edgesOf(node);
-
-            ListenableDirectedGraph<Node, SequenceEdge> match;
-
-            if (node.getSequenceEdges().size() >= 1) {
-                for (SequenceEdge edge: edges) {
-                    Node matchNode = searchGraph.getEdgeSource(edge);
-                    match = new ListenableDirectedGraph<>(SequenceEdge.class);
-
-                    match.addVertex(node);
-                    match.addVertex(matchNode);
-
-                    match.addEdge(node, matchNode, edge);
-
-                    foundMatches.add(match);
-                }
-            }
-        }
-
-        return foundMatches;
-    }
-    */
 }

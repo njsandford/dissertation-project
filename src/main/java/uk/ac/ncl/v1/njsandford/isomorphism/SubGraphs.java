@@ -5,6 +5,7 @@ import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.QueryNode;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
+import uk.ac.ncl.v2.njsandford.graphV2.graphV2.SequenceType;
 
 /**
  * Created by Natalie on 28/02/2017.
@@ -175,6 +176,28 @@ public class SubGraphs {
         return duplication;
     }
 
+    public ListenableDirectedGraph<Node, SequenceEdge> consecutiveDuplicationInQuery() {
+        ListenableDirectedGraph<Node, SequenceEdge> duplication = new ListenableDirectedGraph<>(SequenceEdge.class);
+
+        QueryNode query1 = new QueryNode("query", 1, 2, 0, 0.0, 0.0, 0.0);
+        QueryNode query2 = new QueryNode("query", 3, 4, 0, 0.0, 0.0, 0.0);
+        SubjectNode subject = new SubjectNode("subject", 1, 2, 0, 0.0, 0.0, 0.0);
+
+        duplication.addVertex(query1);
+        duplication.addVertex(query2);
+        duplication.addVertex(subject);
+
+        SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge defaultEdge = new SequenceEdge(SequenceEdge.Type.DEFAULT);
+
+        duplication.addEdge(query1, subject, startEdge);
+        duplication.addEdge(query2, subject, endEdge);
+        duplication.addEdge(query1, query2, defaultEdge);
+
+        return duplication;
+    }
+
     public ListenableDirectedGraph<Node, SequenceEdge> duplicationInSearch() {
         ListenableDirectedGraph<Node, SequenceEdge> duplication = new ListenableDirectedGraph<>(SequenceEdge.class);
 
@@ -191,6 +214,28 @@ public class SubGraphs {
 
         duplication.addEdge(query, subject1, startEdge);
         duplication.addEdge(query, subject2, endEdge);
+
+        return duplication;
+    }
+
+    public ListenableDirectedGraph<Node, SequenceEdge> consecutiveDuplicationInSearch() {
+        ListenableDirectedGraph<Node, SequenceEdge> duplication = new ListenableDirectedGraph<>(SequenceEdge.class);
+
+        QueryNode query = new QueryNode("query", 1, 2, 0, 0.0, 0.0, 0.0);
+        SubjectNode subject1 = new SubjectNode("subject1", 1, 2, 0, 0.0, 0.0, 0.0);
+        SubjectNode subject2 = new SubjectNode("subject2", 3, 4, 0, 0.0, 0.0, 0.0);
+
+        duplication.addVertex(query);
+        duplication.addVertex(subject1);
+        duplication.addVertex(subject2);
+
+        SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
+        SequenceEdge defaultEdge = new SequenceEdge(SequenceEdge.Type.DEFAULT);
+
+        duplication.addEdge(query, subject1, startEdge);
+        duplication.addEdge(query, subject2, endEdge);
+        duplication.addEdge(subject1, subject2, defaultEdge);
 
         return duplication;
     }

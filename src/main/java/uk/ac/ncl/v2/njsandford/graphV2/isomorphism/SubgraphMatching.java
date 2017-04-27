@@ -9,10 +9,7 @@ import org.jgrapht.graph.DefaultListenableGraph;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v2.njsandford.graphV2.graphV2.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Natalie on 17/04/2017.
@@ -111,6 +108,19 @@ public class SubgraphMatching {
         }
 
         return mappingList;
+    }
+
+    public Set<ListenableDirectedGraph<BreakPoint, DefaultEdge>> mappingToSet(Iterator<GraphMapping<BreakPoint, DefaultEdge>> mappingIterator) {
+        Set<ListenableDirectedGraph<BreakPoint, DefaultEdge>> mappingSet = new HashSet<>();
+
+        if (isomorphismInspector.isomorphismExists()) {
+            for (Iterator<GraphMapping<BreakPoint, DefaultEdge>> iter = mappingIterator; iter.hasNext();) {
+                ListenableDirectedGraph<BreakPoint, DefaultEdge> subgraphMatch = getMappingSubgraph(iter.next());
+                mappingSet.add(subgraphMatch);
+            }
+        }
+
+        return mappingSet;
     }
 
     public ListenableDirectedGraph<BreakPoint, DefaultEdge> getMappingSubgraph(GraphMapping<BreakPoint, DefaultEdge> mapping) {

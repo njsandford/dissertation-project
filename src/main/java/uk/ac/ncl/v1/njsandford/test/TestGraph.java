@@ -29,7 +29,7 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<BlastData> graphData = parseData.readBlastFile("CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
@@ -37,7 +37,7 @@ public class TestGraph {
 
 
         SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph);
-        System.out.println("MATCH:");
+/*        System.out.println("MATCH:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
         System.out.println("DELETION:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
@@ -49,10 +49,36 @@ public class TestGraph {
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
         System.out.println("DUPLICATION_IN_SUBJECT:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
+        System.out.println("CON_DUPLICATION_IN_QUERY:");
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_QUERY));
+        System.out.println("CON_DUPLICATION_IN_SUBJECT:");
+        searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_SUBJECT));
         System.out.println("INVERSION_IN_QUERY:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY));
         System.out.println("INVERSION_IN_SUBJECT:");
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
+*/
+
+        System.out.println("MATCH:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
+        System.out.println("DELETION:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
+        System.out.println("INSERTION:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INSERTION));
+        System.out.println("VARIATION:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.VARIATION));
+        System.out.println("DUPLICATION_IN_QUERY:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
+        System.out.println("DUPLICATION_IN_SUBJECT:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
+        System.out.println("CON_DUPLICATION_IN_QUERY:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_QUERY));
+        System.out.println("CON_DUPLICATION_IN_SUBJECT:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_SUBJECT));
+        System.out.println("INVERSION_IN_QUERY:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY));
+        System.out.println("INVERSION_IN_SUBJECT:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
 /**//*
         /*SubGraphs subGraphs = new SubGraphs();
         testGraph.testAlgorithm(subGraphs.match(), "Match");
@@ -80,6 +106,8 @@ public class TestGraph {
         GUI variation = new GUI(subGraphs.variation(), graphData);
         GUI duplicationInQueryNonConsecutive = new GUI(subGraphs.duplicationInQuery(), graphData);
         GUI duplicationInSubjectNonConsecutive = new GUI(subGraphs.duplicationInSearch(), graphData);
+        GUI conDuplicationInQueryNonConsecutive = new GUI(subGraphs.consecutiveDuplicationInQuery(), graphData);
+        GUI conDuplicationInSubjectNonConsecutive = new GUI(subGraphs.consecutiveDuplicationInSearch(), graphData);
         GUI inversionInQuery = new GUI(subGraphs.inversionInQuery(), graphData);
         GUI inversionInSubject = new GUI(subGraphs.inversionInSubject(), graphData);
         //gui.openGUI();
