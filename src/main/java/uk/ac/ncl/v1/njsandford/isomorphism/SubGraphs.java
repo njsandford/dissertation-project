@@ -5,7 +5,6 @@ import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.QueryNode;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
-import uk.ac.ncl.v2.njsandford.graphV2.graphV2.SequenceType;
 
 /**
  * Created by Natalie on 28/02/2017.
@@ -105,24 +104,6 @@ public class SubGraphs {
 
         return deletion;
     }
-
-//    public ListenableDirectedGraph<Node, SequenceEdge> inversion() {
-//        ListenableDirectedGraph<Node, SequenceEdge> inversion = new ListenableDirectedGraph<>(SequenceEdge.class);
-//
-//        QueryNode query = new QueryNode("query", 0, 0, 0, 0.0, 0.0, 0.0);
-//        SubjectNode subject = new SubjectNode("subject", 0, 0, 0, 0.0, 0.0, 0.0);
-//
-//        inversion.addVertex(query);
-//        inversion.addVertex(subject);
-//
-//        SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
-//        SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
-//
-//        inversion.addEdge(query, subject, startEdge);
-//        inversion.addEdge(subject, query, endEdge);
-//
-//        return inversion;
-//    }
 
     public ListenableDirectedGraph<Node, SequenceEdge> inversionInQuery() {
         ListenableDirectedGraph<Node, SequenceEdge> inversion = new ListenableDirectedGraph<>(SequenceEdge.class);

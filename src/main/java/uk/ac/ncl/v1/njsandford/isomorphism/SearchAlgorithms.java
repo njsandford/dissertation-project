@@ -11,7 +11,7 @@ import java.util.*;
 /**
  * Created by Natalie on 02/03/2017.
  */
-public class SearchAlgorithms //extends VF2SubgraphIsomorphismInspector {
+public class SearchAlgorithms
 {
     private VF2SubgraphIsomorphismInspector<Node, SequenceEdge> isomorphismInspector;
     private ListenableDirectedGraph<Node, SequenceEdge> graph;

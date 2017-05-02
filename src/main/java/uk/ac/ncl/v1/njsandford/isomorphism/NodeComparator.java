@@ -17,14 +17,5 @@ public class NodeComparator implements Comparator<Node> {
             }
         }
         return -1;
-//        if (node1.getSequenceType() == null || node2.getSequenceType() == null)
-//        {
-//            return 1;
-//        }
-//        else if (node1.getSequenceType() != node2.getSequenceType()) {
-//            return -1;
-//        }
-//        return 0;
-        //return node1.getNodeType().compareTo(node2.getNodeType());
     }
 }

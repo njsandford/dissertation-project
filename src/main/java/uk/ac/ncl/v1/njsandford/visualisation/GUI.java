@@ -4,15 +4,8 @@ import com.mxgraph.model.mxCell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
-import com.mxgraph.util.mxEvent;
-import com.mxgraph.util.mxEventObject;
-import com.mxgraph.util.mxEventSource;
-import com.mxgraph.view.mxGraphSelectionModel;
 import com.mxgraph.view.mxStylesheet;
 
-import org.jgrapht.demo.UserInputListener;
-//import org.jgrapht.demo.
-import org.jgrapht.demo.JGraphXAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
@@ -22,13 +15,7 @@ import uk.ac.ncl.v1.njsandford.graph.QueryNode;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 
 import javax.swing.*;
-import javax.swing.border.Border;
-import javax.swing.border.EtchedBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.*;
 import java.util.List;
 
