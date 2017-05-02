@@ -152,62 +152,7 @@ public class TestGraph {
                 //System.out.println(count++ + ": " + iter.next().toString());
             }
         }
-
-
     }
-/*
-    public String printMapping(GraphMapping<Node, SequenceEdge> mapping) {
-        String str = "[";
-        Set<Node> vertexSet = graph.vertexSet();
-        Map<String, Node> vertexMap = new TreeMap<>();
-
-        for (Node node : vertexSet) {
-            vertexMap.put(node.toString(), node);
-        }
-
-        int i = 0;
-        for (Map.Entry<String, Node> entry : vertexMap.entrySet()) {
-            Node u = mapping.getVertexCorrespondence(entry.getValue(), true);
-            str += ((i++ == 0) ? "" : " ") + entry.getKey() + "=" + ((u == null) ? "~~" : u);
-        }
-
-        return str + "]";
-    }
-*/
-    /*
-    public ListenableDirectedGraph<Node, SequenceEdge> getMappingSubgraph(GraphMapping<Node, SequenceEdge> mapping) {
-        ListenableDirectedGraph<Node, SequenceEdge> subgraph = new ListenableDirectedGraph<>(SequenceEdge.class);
-
-        String str = "[";
-        Set<Node> vertexSet = graph.vertexSet();
-        Map<String, Node> vertexMap = new TreeMap<>();
-
-        for (Node node : vertexSet) {
-            vertexMap.put(node.toString(), node);
-        }
-
-        int i = 0;
-        for (Map.Entry<String, Node> entry : vertexMap.entrySet()) {
-            Node u = mapping.getVertexCorrespondence(entry.getValue(), true);
-            str += ((i++ == 0) ? "" : " ") + entry.getKey() + "=" + ((u == null) ? "~~" : u);
-
-            if (u != null) {
-                subgraph.addVertex(entry.getValue());
-            }
-        }
-
-        // Add edges, if they exist.
-        for (Node node : subgraph.vertexSet()) {
-            for (Node node2 : subgraph.vertexSet()) {
-                if (graph.containsEdge(node, node2)) {
-                    subgraph.addEdge(node, node2, graph.getEdge(node, node2));
-                }
-            }
-        }
-
-        return subgraph;
-    }*/
-
 
     public void testParseData(String fileName) {
         ParseData parseData = new ParseData();
