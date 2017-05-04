@@ -103,21 +103,27 @@ public class SearchAlgorithms
 
     public void printSearchResults(Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingSet, SubgraphMotif motifType) {
         int count = 1;
-
-        System.out.println("\nIdentified " + mappingSet.size() + " " + motifType.toString() + "S:");
+        System.out.println("\nIdentified " + mappingSet.size() + " instances of " + motifType.toString() + ":");
 
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
             System.out.print(count++ + ": " + motifType.toString() + " found:");
-            for (Node node: subgraph.vertexSet()) {
-                if (node.getNodeType() == Node.Type.QUERY) {
-                    System.out.print(" [Query position: " + node.getStart() + " - " + node.getEnd() + "]");
+            boolean print = false;
+            for (Node node2: subgraph.vertexSet()) {
+                if (node2.getStart() == 472687 || node2.getEnd() == 472687 || node2.getStart() == 472822 || node2.getEnd() == 472822) {
+                    print = true;
                 }
-                else System.out.print(" [Subject position: " + node.getStart() + " - " + node.getEnd() + "]");
+            }
+            for (Node node: subgraph.vertexSet()) {
+                if (print) {
+                    if (node.getNodeType() == Node.Type.QUERY) {
+                        System.out.print(" [Query position: " + node.getStart() + " - " + node.getEnd() + "]");
+                    }
+                    else System.out.print(" [Subject position: " + node.getStart() + " - " + node.getEnd() + "]");
+                }
             }
             System.out.println();
         }
     }
-
 
     public List<ListenableDirectedGraph<Node, SequenceEdge>> mappingToList(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {
         List<ListenableDirectedGraph<Node, SequenceEdge>> mappingList = new ArrayList<>();
