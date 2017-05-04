@@ -108,18 +108,18 @@ public class SearchAlgorithms
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
             System.out.print(count++ + ": " + motifType.toString() + " found:");
             boolean print = false;
-            for (Node node2: subgraph.vertexSet()) {
-                if (node2.getStart() == 472687 || node2.getEnd() == 472687 || node2.getStart() == 472822 || node2.getEnd() == 472822) {
-                    print = true;
-                }
-            }
+//            for (Node node2: subgraph.vertexSet()) {
+//                if (node2.getStart() == 472687 || node2.getEnd() == 472687 || node2.getStart() == 472822 || node2.getEnd() == 472822) {
+//                    print = true;
+//                }
+//            }
             for (Node node: subgraph.vertexSet()) {
-                if (print) {
+                //if (print) {
                     if (node.getNodeType() == Node.Type.QUERY) {
                         System.out.print(" [Query position: " + node.getStart() + " - " + node.getEnd() + "]");
                     }
                     else System.out.print(" [Subject position: " + node.getStart() + " - " + node.getEnd() + "]");
-                }
+                //}
             }
             System.out.println();
         }

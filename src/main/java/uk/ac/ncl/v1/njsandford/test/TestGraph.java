@@ -21,7 +21,7 @@ public class TestGraph {
     public static void main(String[] args) {
 
         ParseData parseData = new ParseData();
-        ArrayList<BlastData> graphData = parseData.readBlastFile("GP5MD2TG114-Alignment.csv");//"NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("oneOfEachMotif3.csv");//"GP5MD2TG114-Alignment.csv");//"NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
@@ -137,7 +137,7 @@ public class TestGraph {
 
         SubGraphs subGraphs = new SubGraphs();
 
-        //GUI gui = new GUI(graph, graphData);
+        GUI gui = new GUI(graph, graphData);
 
 /*
         // Display each rearramgement motif in separage GUI windows.
