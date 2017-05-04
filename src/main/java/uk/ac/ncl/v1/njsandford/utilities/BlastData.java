@@ -3,8 +3,8 @@ package uk.ac.ncl.v1.njsandford.utilities;
 /**
  * Created by Natalie on 19/03/2017.
  */
-public class BlastData {
 
+public class BlastData {
     private String queryId;
     private String subjectId;
     private double identity;
@@ -41,6 +41,7 @@ public class BlastData {
     private void setQueryId(String queryId) {
         this.queryId = queryId;
     }
+
     public String getSubjectId() {
         return subjectId;
     }

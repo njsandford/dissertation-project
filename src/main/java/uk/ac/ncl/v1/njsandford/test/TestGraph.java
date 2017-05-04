@@ -29,7 +29,7 @@ public class TestGraph {
         //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
-        ArrayList<BlastData> graphData = parseData.readBlastFile("oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
+        ArrayList<BlastData> graphData = parseData.readBlastFile("GP5MD2TG114-Alignment.csv");//"NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
         System.out.println(graphData);
 
         GraphHelper graphHelper = new GraphHelper();
@@ -59,26 +59,72 @@ public class TestGraph {
         searchAlgorithms.printMappingList(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
 */
 
-        System.out.println("MATCH:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
-        System.out.println("DELETION:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
+        long startTime = System.currentTimeMillis();
+
+        //System.out.println("MATCH:");
+        //searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
+
+        long insStart = System.currentTimeMillis();
         System.out.println("INSERTION:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INSERTION));
+        long insEnd = System.currentTimeMillis();
+
+        long delStart = System.currentTimeMillis();
+        System.out.println("DELETION:");
+        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
+        long delEnd = System.currentTimeMillis();
+
+        long varStart = System.currentTimeMillis();
         System.out.println("VARIATION:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.VARIATION));
+        long varEnd = System.currentTimeMillis();
+
+        long DQNCStart = System.currentTimeMillis();
         System.out.println("DUPLICATION_IN_QUERY:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
+        long DQNCEnd = System.currentTimeMillis();
+
+        long DSNCStart = System.currentTimeMillis();
         System.out.println("DUPLICATION_IN_SUBJECT:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
+        long DSNCEnd = System.currentTimeMillis();
+
+        long DQCStart = System.currentTimeMillis();
         System.out.println("CON_DUPLICATION_IN_QUERY:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_QUERY));
+        long DQCEnd = System.currentTimeMillis();
+
+        long DSCEnd = System.currentTimeMillis();
         System.out.println("CON_DUPLICATION_IN_SUBJECT:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_SUBJECT));
+        long DSCStart = System.currentTimeMillis();
+
+        long invQStart = System.currentTimeMillis();
         System.out.println("INVERSION_IN_QUERY:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY));
+        long invQEnd = System.currentTimeMillis();
+
+        long invSStart = System.currentTimeMillis();
         System.out.println("INVERSION_IN_SUBJECT:");
         searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
+        long invSEnd = System.currentTimeMillis();
+
+        long endTime = System.currentTimeMillis();
+
+        long runTime = endTime - startTime;
+
+        System.out.println("Insertion Run Time: " + (insEnd - insStart) / 1000);
+        System.out.println("Deletion Run Time: " + (delEnd - delStart) / 1000);
+        System.out.println("Variation Run Time: " + (varEnd - varStart) / 1000);
+        System.out.println("DQNC Run Time: " + (DQNCEnd - DQNCStart) / 1000);
+        System.out.println("DSNC Run Time: " + (DSNCEnd - DSNCStart) / 1000);
+        System.out.println("DQC Run Time: " + (DQCEnd - DQCStart) / 1000);
+        System.out.println("DSC Run Time: " + (DSCEnd - DSCStart) / 1000);
+        System.out.println("Inversion Query Run Time: " + (invQEnd - invQStart) / 1000);
+        System.out.println("Inversion Subject Run Time: " + (invSEnd - invSStart) / 1000);
+
+        System.out.println("Total Run Time: " + runTime / 1000);
+
 /**//*
         /*SubGraphs subGraphs = new SubGraphs();
         testGraph.testAlgorithm(subGraphs.match(), "Match");

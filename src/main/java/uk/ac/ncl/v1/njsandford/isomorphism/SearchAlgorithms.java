@@ -81,10 +81,8 @@ public class SearchAlgorithms
                 isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject, nodeComparator, edgeComparator);
                 break;
         }
-
         Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator = isomorphismInspector.getMappings();
 
-        //return mappingToList(mappingIterator);
         return mappingToSet(mappingIterator);
     }
 

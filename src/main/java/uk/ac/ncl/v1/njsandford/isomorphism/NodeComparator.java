@@ -7,6 +7,8 @@ import java.util.Comparator;
 /**
  * Created by Natalie on 10/04/2017.
  */
+
+
 public class NodeComparator implements Comparator<Node> {
 
     @Override
@@ -19,3 +21,5 @@ public class NodeComparator implements Comparator<Node> {
         return -1;
     }
 }
+
+

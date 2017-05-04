@@ -1,11 +1,13 @@
 package uk.ac.ncl.v1.njsandford.visualisation;
 
-import com.mxgraph.model.mxCell;
+import com.mxgraph.model.mxICell;
 import com.mxgraph.model.mxGeometry;
 import com.mxgraph.swing.mxGraphComponent;
 import com.mxgraph.util.mxConstants;
 import com.mxgraph.view.mxStylesheet;
 
+import org.jgrapht.demo.JGraphXAdapter;
+//import org.jgrapht.ext.JGraphXAdapter;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
@@ -92,7 +94,7 @@ public class GUI {
         int counter = 0;
         double x = 20, y = 20;
 
-        for (mxCell cell : jGraph.getVertexToCellMap().values())
+        for (mxICell cell : jGraph.getVertexToCellMap().values())
         {
 
             if(cell.getValue() instanceof QueryNode)
@@ -113,9 +115,9 @@ public class GUI {
         }
 
 
-        for(mxCell cell2 : jGraph.getEdgeToCellMap().values())
+        for(mxICell cell2 : jGraph.getEdgeToCellMap().values())
         {
-            for (int i = 0; i< jGraph.getVertexToCellMap().values().size(); i++) //mxCell cell : jGraph.getVertexToCellMap().values())
+            for (int i = 0; i < jGraph.getVertexToCellMap().values().size(); i++) //mxCell cell : jGraph.getVertexToCellMap().values())
             {
                 //cell.getValue();
                 if(cell2.getValue().toString().equals("GAP"))

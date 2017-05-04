@@ -5,6 +5,7 @@ import java.util.ArrayList;
 /**
  * Created by Natalie on 19/03/2017.
  */
+
 public class Node {
     protected Type nodeType;
     protected String seqId;
