@@ -51,34 +51,34 @@ public class SearchAlgorithms
 
         switch (motif) {
             case MATCH:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, match, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, match, nodeComparator, edgeComparator, false);
                 break;
             case VARIATION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, variation, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, variation, nodeComparator, edgeComparator, false);
                 break;
             case DELETION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, deletion, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, deletion, nodeComparator, edgeComparator, false);
                 break;
             case INSERTION:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, insertion, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, insertion, nodeComparator, edgeComparator, false);
                 break;
             case DUPLICATION_IN_QUERY:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQuery, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInQuery, nodeComparator, edgeComparator, false);
                 break;
             case DUPLICATION_IN_SUBJECT:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubject, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, duplicationInSubject, nodeComparator, edgeComparator, false);
                 break;
             case CON_DUPLICATION_IN_QUERY:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInQuery, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInQuery, nodeComparator, edgeComparator, false);
                 break;
             case CON_DUPLICATION_IN_SUBJECT:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInSubject, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, conDuplicationInSubject, nodeComparator, edgeComparator, false);
                 break;
             case INVERSION_IN_QUERY:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInQuery, nodeComparator, edgeComparator, false);
                 break;
             case INVERSION_IN_SUBJECT:
-                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject, nodeComparator, edgeComparator);
+                isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, inversionInSubject, nodeComparator, edgeComparator, false);
                 break;
         }
         Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator = isomorphismInspector.getMappings();
