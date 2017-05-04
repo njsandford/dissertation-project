@@ -4,6 +4,7 @@ import org.jgrapht.GraphMapping;
 import org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.graph.Node;
+import uk.ac.ncl.v1.njsandford.graph.QueryNode;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
 
 import java.util.*;
@@ -99,6 +100,24 @@ public class SearchAlgorithms
             System.out.println(count++ + ": " + subgraph);
         }
     }
+
+    public void printSearchResults(Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingSet, SubgraphMotif motifType) {
+        int count = 1;
+
+        System.out.println("\nIdentified " + mappingSet.size() + " " + motifType.toString() + "S:");
+
+        for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
+            System.out.print(count++ + ": " + motifType.toString() + " found:");
+            for (Node node: subgraph.vertexSet()) {
+                if (node.getNodeType() == Node.Type.QUERY) {
+                    System.out.print(" [Query position: " + node.getStart() + " - " + node.getEnd() + "]");
+                }
+                else System.out.print(" [Subject position: " + node.getStart() + " - " + node.getEnd() + "]");
+            }
+            System.out.println();
+        }
+    }
+
 
     public List<ListenableDirectedGraph<Node, SequenceEdge>> mappingToList(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {
         List<ListenableDirectedGraph<Node, SequenceEdge>> mappingList = new ArrayList<>();

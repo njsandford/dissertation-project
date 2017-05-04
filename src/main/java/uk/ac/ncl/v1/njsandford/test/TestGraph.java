@@ -1,7 +1,5 @@
 package uk.ac.ncl.v1.njsandford.test;
 
-import org.jgrapht.GraphMapping;
-import org.jgrapht.alg.isomorphism.VF2SubgraphIsomorphismInspector;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.isomorphism.*;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
@@ -18,15 +16,9 @@ import java.util.*;
  */
 public class TestGraph {
 
-    //private static ListenableDirectedGraph<BreakPoint, DefaultEdge> graph;
     private static ListenableDirectedGraph<Node, SequenceEdge> graph;
 
     public static void main(String[] args) {
-        //populateGraph = new PopulateGraph();
-        //graph = populateGraph.getGraph();
-
-        TestGraph testGraph = new TestGraph();
-        //testGraph.testParseData("testBlast.txt");
 
         ParseData parseData = new ParseData();
         ArrayList<BlastData> graphData = parseData.readBlastFile("GP5MD2TG114-Alignment.csv");//"NC_009641_Newman.fna-NC_002952_MRSA252.csv"); //"oneOfEachMotif2.csv");//"oneOfEachMotif1.csv"); //"CV86YM68113-Alignment-HitTable.csv"); //"NC_009641_Newman.fna-NC_002952_MRSA252.csv");//"test-sequence.txt");//"testBlast.txt");//"NC_009641_Newman.fna-NC_002952_MRSA252.fna.blast");
@@ -65,65 +57,65 @@ public class TestGraph {
         //searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.MATCH));
 
         long insStart = System.currentTimeMillis();
-        System.out.println("INSERTION:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INSERTION));
+        //System.out.println("INSERTION:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.INSERTION), SubgraphMotif.INSERTION);
         long insEnd = System.currentTimeMillis();
 
         long delStart = System.currentTimeMillis();
-        System.out.println("DELETION:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DELETION));
+        //System.out.println("DELETION:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.DELETION), SubgraphMotif.DELETION);
         long delEnd = System.currentTimeMillis();
 
         long varStart = System.currentTimeMillis();
-        System.out.println("VARIATION:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.VARIATION));
+        //System.out.println("VARIATION:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.VARIATION), SubgraphMotif.VARIATION);
         long varEnd = System.currentTimeMillis();
 
         long DQNCStart = System.currentTimeMillis();
-        System.out.println("DUPLICATION_IN_QUERY:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY));
+        //System.out.println("DUPLICATION_IN_QUERY:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_QUERY), SubgraphMotif.DUPLICATION_IN_QUERY);
         long DQNCEnd = System.currentTimeMillis();
 
         long DSNCStart = System.currentTimeMillis();
-        System.out.println("DUPLICATION_IN_SUBJECT:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT));
+        //System.out.println("DUPLICATION_IN_SUBJECT:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.DUPLICATION_IN_SUBJECT), SubgraphMotif.DUPLICATION_IN_SUBJECT);
         long DSNCEnd = System.currentTimeMillis();
 
         long DQCStart = System.currentTimeMillis();
-        System.out.println("CON_DUPLICATION_IN_QUERY:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_QUERY));
+        //System.out.println("CON_DUPLICATION_IN_QUERY:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_QUERY), SubgraphMotif.CON_DUPLICATION_IN_QUERY);
         long DQCEnd = System.currentTimeMillis();
 
-        long DSCEnd = System.currentTimeMillis();
-        System.out.println("CON_DUPLICATION_IN_SUBJECT:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_SUBJECT));
         long DSCStart = System.currentTimeMillis();
+        //System.out.println("CON_DUPLICATION_IN_SUBJECT:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.CON_DUPLICATION_IN_SUBJECT), SubgraphMotif.CON_DUPLICATION_IN_SUBJECT);
+        long DSCEnd = System.currentTimeMillis();
 
         long invQStart = System.currentTimeMillis();
-        System.out.println("INVERSION_IN_QUERY:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY));
+        //System.out.println("INVERSION_IN_QUERY:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_QUERY), SubgraphMotif.INVERSION_IN_QUERY);
         long invQEnd = System.currentTimeMillis();
 
         long invSStart = System.currentTimeMillis();
-        System.out.println("INVERSION_IN_SUBJECT:");
-        searchAlgorithms.printMappingSet(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT));
+        //System.out.println("INVERSION_IN_SUBJECT:");
+        searchAlgorithms.printSearchResults(searchAlgorithms.findMotif(SubgraphMotif.INVERSION_IN_SUBJECT), SubgraphMotif.INVERSION_IN_SUBJECT);
         long invSEnd = System.currentTimeMillis();
 
         long endTime = System.currentTimeMillis();
 
         long runTime = endTime - startTime;
 
-        System.out.println("Insertion Run Time: " + (insEnd - insStart) / 1000);
-        System.out.println("Deletion Run Time: " + (delEnd - delStart) / 1000);
-        System.out.println("Variation Run Time: " + (varEnd - varStart) / 1000);
-        System.out.println("DQNC Run Time: " + (DQNCEnd - DQNCStart) / 1000);
-        System.out.println("DSNC Run Time: " + (DSNCEnd - DSNCStart) / 1000);
-        System.out.println("DQC Run Time: " + (DQCEnd - DQCStart) / 1000);
-        System.out.println("DSC Run Time: " + (DSCEnd - DSCStart) / 1000);
-        System.out.println("Inversion Query Run Time: " + (invQEnd - invQStart) / 1000);
-        System.out.println("Inversion Subject Run Time: " + (invSEnd - invSStart) / 1000);
+        System.out.println(/*"Insertion Run Time: " + */(insEnd - insStart));
+        System.out.println(/*"Deletion Run Time: " + */(delEnd - delStart));
+        System.out.println(/*"Variation Run Time: " + */(varEnd - varStart));
+        System.out.println(/*"DQNC Run Time: " + */(DQNCEnd - DQNCStart));
+        System.out.println(/*"DSNC Run Time: " + */(DSNCEnd - DSNCStart));
+        System.out.println(/*"DQC Run Time: " + */(DQCEnd - DQCStart));
+        System.out.println(/*"DSC Run Time: " + */(DSCEnd - DSCStart));
+        System.out.println(/*"Inversion Query Run Time: " + */(invQEnd - invQStart));
+        System.out.println(/*"Inversion Subject Run Time: " + */(invSEnd - invSStart));
 
-        System.out.println("Total Run Time: " + runTime / 1000);
+        System.out.println(/*"Total Run Time: " +*/ runTime);
 
 /**//*
         /*SubGraphs subGraphs = new SubGraphs();
@@ -145,8 +137,11 @@ public class TestGraph {
 
         SubGraphs subGraphs = new SubGraphs();
 
-        GUI gui = new GUI(graph, graphData);
-/*        GUI match = new GUI(subGraphs.match(), graphData);
+        //GUI gui = new GUI(graph, graphData);
+
+/*
+        // Display each rearramgement motif in separage GUI windows.
+        GUI match = new GUI(subGraphs.match(), graphData);
         GUI deletion = new GUI(subGraphs.deletion(), graphData);
         GUI insertion = new GUI(subGraphs.insertion(), graphData);
         GUI variation = new GUI(subGraphs.variation(), graphData);
@@ -158,47 +153,9 @@ public class TestGraph {
         GUI inversionInSubject = new GUI(subGraphs.inversionInSubject(), graphData);
         //gui.openGUI();
 */
-
-        //populateGraph.run();
-        //initialiseGraph();
-        //testGraph.graph = testGraph.populateGraph.getGraph();
-        //testGraph.printGraph();
-        //testGraph.populateGraph.graphVisualisation();
-        //GUI();
     }
 
-    public void testAlgorithm(ListenableDirectedGraph<Node, SequenceEdge> graph, ListenableDirectedGraph<Node, SequenceEdge> subgraph, String motif) {
-        //SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph, subgraph);
-        NodeComparator nodeComparator = new NodeComparator();
-        EdgeComparator edgeComparator = new EdgeComparator();
-        VF2SubgraphIsomorphismInspector<Node, SequenceEdge> vf2SubgraphIsomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, subgraph, nodeComparator, edgeComparator);
 
-        boolean isomorphism = vf2SubgraphIsomorphismInspector.isomorphismExists();
-
-        SubGraphs subGraphs = new SubGraphs();
-        //ListenableDirectedGraph<Node, SequenceEdge> subgraph = subGraphs.inversion();
-        //subgraph.
-
-        System.out.println(motif + ": " + isomorphism);
-
-        SearchAlgorithms searchAlgorithms = new SearchAlgorithms(graph);
-
-        if (isomorphism) {
-            int count = 1;
-
-            Set<Node> nodeSet = graph.vertexSet();
-            for (Node node : nodeSet) {
-
-            }
-
-            for (Iterator<GraphMapping<Node, SequenceEdge>> iter = vf2SubgraphIsomorphismInspector.getMappings(); iter.hasNext();) {
-                ListenableDirectedGraph<Node, SequenceEdge> subgraphMatch = searchAlgorithms.getMappingSubgraph(iter.next());
-                System.out.println(count + ": " + subgraphMatch.toString());
-                //System.out.println(printMapping(iter.next()));
-                //System.out.println(count++ + ": " + iter.next().toString());
-            }
-        }
-    }
 
     public void testParseData(String fileName) {
         ParseData parseData = new ParseData();
