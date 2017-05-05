@@ -111,12 +111,6 @@ public class GraphHelper {
         else return SequenceEdge.Type.OVERLAP;
     }
 
-    /* NO LONGER USED!! Inversion, checks now done in isomorphism algorithm only.
-    private boolean inversionCheck(QueryNode qNode, SubjectNode sNode) {
-        if ((qNode.getEnd() < qNode.getStart()) || (sNode.getEnd() < sNode.getStart())) return true;
-        else return false;
-    }*/
-
     private QueryNode dataToQueryNode(BlastData data) {
         return new QueryNode(data.getQueryId(), data.getQueryStart(), data.getQueryEnd(), data.getAlignmentLength(), data.getIdentity(), data.geteValue(), data.getBitScore());
     }

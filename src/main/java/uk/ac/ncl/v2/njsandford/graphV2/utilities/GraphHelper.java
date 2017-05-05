@@ -1,12 +1,10 @@
 package uk.ac.ncl.v2.njsandford.graphV2.utilities;
 
-import org.jgrapht.demo.QueryNode;
 import org.jgrapht.graph.DefaultEdge;
 import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.utilities.BlastData;
 import uk.ac.ncl.v2.njsandford.graphV2.graphV2.*;
 
-import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

@@ -51,7 +51,6 @@ public class SearchAlgorithms
     }
 
     public Set<ListenableDirectedGraph<Node, SequenceEdge>> findMotif(SubgraphMotif motif) {
-
         switch (motif) {
             case MATCH:
                 isomorphismInspector = new VF2SubgraphIsomorphismInspector<>(graph, match, nodeComparator, edgeComparator, false);
@@ -89,13 +88,6 @@ public class SearchAlgorithms
         return mappingToSet(mappingIterator);
     }
 
-    public void printMappingList(List<ListenableDirectedGraph<Node, SequenceEdge>> mappingList) {
-        int count = 1;
-        for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingList) {
-            System.out.println(count++ + ": " + subgraph);
-        }
-    }
-
     public void printMappingSet(Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingSet) {
         int count = 1;
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
@@ -108,13 +100,7 @@ public class SearchAlgorithms
         System.out.println("\nIdentified " + mappingSet.size() + " instances of " + motifType.toString() + ":");
 
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
-            System.out.print(count++ + ": ");// + motifType.toString() + " found:");
-            boolean print = false;
-//            for (Node node2: subgraph.vertexSet()) {
-//                if (node2.getStart() == 472687 || node2.getEnd() == 472687 || node2.getStart() == 472822 || node2.getEnd() == 472822) {
-//                    print = true;
-//                }
-//            }
+            System.out.print(count++ + ": ");
             switch (motifType) {
                 case VARIATION:
                     printFourNodePosition(subgraph, motifType);
@@ -213,19 +199,6 @@ public class SearchAlgorithms
             else sPosition = "subject [" + node.getStart() + " - " + node.getEnd() + "]";
         }
         System.out.println(motifType.toString() + " found in " + qPosition + " and " + sPosition);
-    }
-
-    public List<ListenableDirectedGraph<Node, SequenceEdge>> mappingToList(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {
-        List<ListenableDirectedGraph<Node, SequenceEdge>> mappingList = new ArrayList<>();
-
-        if (isomorphismInspector.isomorphismExists()) {
-            for (Iterator<GraphMapping<Node, SequenceEdge>> iter = mappingIterator; iter.hasNext();) {
-                ListenableDirectedGraph<Node, SequenceEdge> subgraphMatch = getMappingSubgraph(iter.next());
-                mappingList.add(subgraphMatch);
-            }
-        }
-
-        return mappingList;
     }
 
     public Set<ListenableDirectedGraph<Node, SequenceEdge>> mappingToSet(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {

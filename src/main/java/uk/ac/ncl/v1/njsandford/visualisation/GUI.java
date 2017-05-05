@@ -41,7 +41,6 @@ public class GUI {
     }
 
     public void initGUI() {
-
         this.frame = new JFrame("Rearrangement Types");
         this.panel = new JPanel(new GridBagLayout());
 
@@ -62,7 +61,6 @@ public class GUI {
         frame.pack();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
-
     }
 
     public void setGraphStyle()
@@ -89,7 +87,7 @@ public class GUI {
     {
         setGraphStyle();
 
-        jGraph.getModel().beginUpdate(); //jGraph.getModel() allow for the jGraph to be changed dynamically
+        jGraph.getModel().beginUpdate();
 
         int counter = 0;
         double x = 20, y = 20;
@@ -113,7 +111,6 @@ public class GUI {
             jGraph.getModel().setGeometry(cell, new mxGeometry(x, y, 85, 55)); //60, 55
             counter++;
         }
-
 
         for(mxICell cell2 : jGraph.getEdgeToCellMap().values())
         {
@@ -147,8 +144,6 @@ public class GUI {
         jGraph.setConnectableEdges(false);
         jGraph.setAllowDanglingEdges(false);
         jGraph.setCellsMovable(true);
-
-
     }
 
     public int getScreenWorkingWidth()

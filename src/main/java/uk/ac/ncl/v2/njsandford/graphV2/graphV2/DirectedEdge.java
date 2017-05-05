@@ -1,6 +1,5 @@
 package uk.ac.ncl.v2.njsandford.graphV2.graphV2;
 
-import org.jgrapht.demo.SequenceEdge;
 import org.jgrapht.graph.DefaultEdge;
 
 /**
