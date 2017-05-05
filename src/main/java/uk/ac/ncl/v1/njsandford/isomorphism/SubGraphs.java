@@ -66,8 +66,8 @@ public class SubGraphs {
         insertion.addVertex(sStart);
         insertion.addVertex(sEnd);
 
-        SequenceEdge qGap = new SequenceEdge(SequenceEdge.Type.GAP);
-        SequenceEdge sMatch = new SequenceEdge(SequenceEdge.Type.NO_GAP);
+        SequenceEdge qGap = new SequenceEdge(SequenceEdge.Type.NO_GAP);
+        SequenceEdge sMatch = new SequenceEdge(SequenceEdge.Type.GAP);
         SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
         SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
 
@@ -92,8 +92,8 @@ public class SubGraphs {
         deletion.addVertex(sStart);
         deletion.addVertex(sEnd);
 
-        SequenceEdge qMatch = new SequenceEdge(SequenceEdge.Type.NO_GAP);
-        SequenceEdge sGap = new SequenceEdge(SequenceEdge.Type.GAP);
+        SequenceEdge qMatch = new SequenceEdge(SequenceEdge.Type.GAP);
+        SequenceEdge sGap = new SequenceEdge(SequenceEdge.Type.NO_GAP);
         SequenceEdge startEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
         SequenceEdge endEdge = new SequenceEdge(SequenceEdge.Type.MATCH);
 

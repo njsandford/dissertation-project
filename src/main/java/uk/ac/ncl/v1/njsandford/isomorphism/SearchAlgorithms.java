@@ -6,6 +6,8 @@ import org.jgrapht.graph.ListenableDirectedGraph;
 import uk.ac.ncl.v1.njsandford.graph.Node;
 import uk.ac.ncl.v1.njsandford.graph.QueryNode;
 import uk.ac.ncl.v1.njsandford.graph.SequenceEdge;
+import uk.ac.ncl.v1.njsandford.graph.SubjectNode;
+import uk.ac.ncl.v2.njsandford.graphV2.isomorphism.SubgraphMatching;
 
 import java.util.*;
 
@@ -106,23 +108,111 @@ public class SearchAlgorithms
         System.out.println("\nIdentified " + mappingSet.size() + " instances of " + motifType.toString() + ":");
 
         for (ListenableDirectedGraph<Node, SequenceEdge> subgraph : mappingSet) {
-            System.out.print(count++ + ": " + motifType.toString() + " found:");
+            System.out.print(count++ + ": ");// + motifType.toString() + " found:");
             boolean print = false;
 //            for (Node node2: subgraph.vertexSet()) {
 //                if (node2.getStart() == 472687 || node2.getEnd() == 472687 || node2.getStart() == 472822 || node2.getEnd() == 472822) {
 //                    print = true;
 //                }
 //            }
-            for (Node node: subgraph.vertexSet()) {
-                //if (print) {
-                    if (node.getNodeType() == Node.Type.QUERY) {
-                        System.out.print(" [Query position: " + node.getStart() + " - " + node.getEnd() + "]");
-                    }
-                    else System.out.print(" [Subject position: " + node.getStart() + " - " + node.getEnd() + "]");
-                //}
+            switch (motifType) {
+                case VARIATION:
+                    printFourNodePosition(subgraph, motifType);
+                    break;
+                case DELETION:
+                    printFourNodePosition(subgraph, motifType);
+                    break;
+                case INSERTION:
+                    printFourNodePosition(subgraph, motifType);
+                    break;
+                case DUPLICATION_IN_QUERY:
+                    printDuplicationQueryPosition(subgraph, motifType);
+                    break;
+                case DUPLICATION_IN_SUBJECT:
+                    printDuplicationSubjectPosition(subgraph, motifType);
+                    break;
+                case CON_DUPLICATION_IN_QUERY:
+                    printDuplicationQueryPosition(subgraph, motifType);
+                    break;
+                case CON_DUPLICATION_IN_SUBJECT:
+                    printDuplicationSubjectPosition(subgraph, motifType);
+                    break;
+                case INVERSION_IN_QUERY:
+                    printTwoNodePosition(subgraph, motifType);
+                    break;
+                case INVERSION_IN_SUBJECT:
+                    printTwoNodePosition(subgraph, motifType);
+                    break;
             }
-            System.out.println();
         }
+    }
+
+    private void printFourNodePosition(ListenableDirectedGraph<Node, SequenceEdge> subgraph, SubgraphMotif motifType) {
+        Node qTemp = null;
+        Node sTemp = null;
+        String qPosition = "";
+        String sPosition = "";
+        for (Node node: subgraph.vertexSet()) {
+            if (node.getNodeType() == Node.Type.QUERY) {
+                if (qTemp != null) {
+                    qPosition = "query [" + Math.min(qTemp.getEnd(), node.getEnd()) + " - " + Math.max(qTemp.getStart(), node.getStart()) + "]";
+                }
+                else qTemp = node;
+            }
+            else {
+                if (sTemp != null) {
+                    sPosition = "subject [" + Math.min(sTemp.getEnd(), node.getEnd()) + " - " + Math.max(sTemp.getStart(), node.getStart()) + "]";
+                }
+                else sTemp = node;
+            }
+        }
+        System.out.println(motifType.toString() + " found in " + qPosition + " and " + sPosition);
+    }
+
+    private void printDuplicationQueryPosition(ListenableDirectedGraph<Node, SequenceEdge> subgraph, SubgraphMotif motifType) {
+        String q1Position = "";
+        String q2Position = "";
+        String sPosition = "";
+        for (Node node: subgraph.vertexSet()) {
+            if (node.getNodeType() == Node.Type.QUERY) {
+                if (q1Position != "") {
+                    q2Position = "query [" + node.getStart() + " - " + node.getEnd() + "]";
+                }
+                else q1Position = "query [" + node.getStart() + " - " + node.getEnd() + "]";
+            }
+            else sPosition = "subject [" + node.getStart() + " - " + node.getEnd() + "]";
+        }
+        System.out.println(motifType.toString() + " found in " + sPosition + ", " + q1Position + " and " + q2Position);
+    }
+
+    private void printDuplicationSubjectPosition(ListenableDirectedGraph<Node, SequenceEdge> subgraph, SubgraphMotif motifType) {
+        String qPosition = "";
+        String s1Position = "";
+        String s2Position = "";
+        for (Node node: subgraph.vertexSet()) {
+            if (node.getNodeType() == Node.Type.QUERY) {
+                qPosition = "query [" + node.getStart() + " - " + node.getEnd() + "]";
+            }
+            else {
+                if (s1Position != "") {
+                    s2Position = "subject [" + node.getStart() + " - " + node.getEnd() + "]";
+                }
+                else s1Position = "subject [" + node.getStart() + " - " + node.getEnd() + "]";
+            }
+        }
+        System.out.println(motifType.toString() + " found in " + qPosition + ", " + s1Position + " and " + s2Position);
+    }
+
+    private void printTwoNodePosition(ListenableDirectedGraph<Node, SequenceEdge> subgraph, SubgraphMotif motifType) {
+        String qPosition = "";
+        String sPosition = "";
+        for (Node node: subgraph.vertexSet()) {
+            if (node.getNodeType() == Node.Type.QUERY) {
+                qPosition = "query [" + node.getStart() + " - " + node.getEnd() + "]";
+            }
+            else sPosition = "subject [" + node.getStart() + " - " + node.getEnd() + "]";
+        }
+        System.out.println(motifType.toString() + " found in " + qPosition + " and " + sPosition);
     }
 
     public List<ListenableDirectedGraph<Node, SequenceEdge>> mappingToList(Iterator<GraphMapping<Node, SequenceEdge>> mappingIterator) {
